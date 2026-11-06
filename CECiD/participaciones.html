@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Participaciones & Eventos • CECiD UNLu</title>
+  <meta name="description" content="Participaciones institucionales, congresos y exposiciones de estudiantes de Analista Universitario en Ciencias de Datos UNLu. Expo UNLu y CACIC 2026.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <canvas id="data-network-canvas" aria-hidden="true"></canvas>
+
+  <!-- Banner Superior -->
+  <aside class="election-top-banner" role="complementary">
+    <div class="banner-inner">
+      <span class="pulse-indicator"></span>
+      <span class="banner-text"><strong>Actividades y Comunidad:</strong> CECiD presente en Expo UNLu y en el XXXII Congreso Argentino de Ciencias de la Computación (CACIC 2026)</span>
+    </div>
+  </aside>
+
+  <!-- Barra de Navegación -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-brand" aria-label="CECiD Inicio">
+        <img src="Logo 2.png" alt="Logo CECiD" class="brand-logo-cecid">
+        <div class="brand-text">
+          <span class="brand-title">CECiD</span>
+          <span class="brand-subtitle">Analista en Ciencias de Datos • UNLu</span>
+        </div>
+      </a>
+
+      <nav class="nav-menu" id="nav-menu" aria-label="Menú principal">
+        <a href="index.html" class="nav-link">Inicio</a>
+        <a href="mapa.html" class="nav-link">Mapa UNLu</a>
+        <a href="equipo.html" class="nav-link">Nuestro Equipo</a>
+        <a href="propuestas.html" class="nav-link">Propuestas</a>
+        <a href="participaciones.html" class="nav-link active highlight-pill">Participaciones</a>
+        <a href="biblioteca.html" class="nav-link">Biblioteca Digital</a>
+        <a href="plan-de-estudios.html" class="nav-link">Plan de Estudios</a>
+        <a href="contacto.html" class="nav-link">Redes & Contacto</a>
+      </nav>
+
+      <div class="nav-actions">
+        <img src="logo-unlu.png" alt="Escudo UNLu" class="brand-logo-unlu" title="Universidad Nacional de Luján">
+        <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú de navegación" aria-expanded="false">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Page Header -->
+    <section class="page-hero">
+      <div class="section-container text-center">
+        <span class="subheading">Comunidad & Trayectoria</span>
+        <h1 class="page-title">Participaciones, Eventos y Congresos</h1>
+        <p class="section-subtitle">
+          Representando a las y los estudiantes de <strong>Analista Universitario en Ciencias de Datos</strong> en ferias vocacionales, congresos nacionales y encuentros académicos de ciencia y tecnología.
+        </p>
+      </div>
+    </section>
+
+    <!-- Evento 1: Expo UNLu Sede Luján -->
+    <section class="section section-dark">
+      <div class="section-container">
+        <div class="event-featured-card">
+          <div class="event-featured-badge">Feria Vocacional & Universitaria</div>
+          <div class="event-header-row">
+            <div>
+              <span class="event-date">📍 Sede Central Luján • 23 de Octubre de 2026</span>
+              <h2 class="event-title">Expo UNLu 2026: Difusión de la Carrera de Ciencia de Datos</h2>
+            </div>
+            <a href="Expo_unlu23-10-2026.pptx" download class="btn btn-primary btn-sm">
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Descargar Presentación (PPTX)
+            </a>
+          </div>
+
+          <p class="event-lead">
+            Durante la jornada de la <strong>Expo UNLu</strong>, el equipo y estudiantes de la carrera presentaron a futuras y futuros ingresantes el alcance laboral, el perfil profesional y las metodologías que se aprenden a lo largo de la cursada en la Universidad Nacional de Luján.
+          </p>
+
+          <!-- Highlights Grid extracted from presentation -->
+          <div class="expo-highlights-grid">
+            <div class="expo-card">
+              <div class="expo-card-icon">🏥</div>
+              <h4>Salud & Medicina</h4>
+              <p>Análisis de datos clínicos, modelos de diagnóstico predictivo y optimización de gestión hospitalaria.</p>
+            </div>
+
+            <div class="expo-card">
+              <div class="expo-card-icon">💳</div>
+              <h4>Finanzas & Banca</h4>
+              <p>Evaluación de riesgos crediticios, detección de fraudes en tiempo real y algoritmos de inversión.</p>
+            </div>
+
+            <div class="expo-card">
+              <div class="expo-card-icon">🛒</div>
+              <h4>Retail & Comercio Digital</h4>
+              <p>Predicción de demanda, personalización de recomendaciones y optimización de logística y stock.</p>
+            </div>
+
+            <div class="expo-card">
+              <div class="expo-card-icon">🌾</div>
+              <h4>Industria & Agro</h4>
+              <p>Mantenimiento predictivo de maquinaria, agricultura de precisión y control estadístico de procesos.</p>
+            </div>
+          </div>
+
+          <!-- Metodologías y Casos Prácticos mostrados en la Expo -->
+          <div class="expo-deepdive">
+            <h3 class="deepdive-title">Temas Técnicos Presentados en la Expo UNLu</h3>
+            <div class="deepdive-grid">
+              <div class="deepdive-box">
+                <span class="deepdive-tag">Procesamiento de Lenguaje Natural (NLP)</span>
+                <h4>Análisis de Sentimiento & Pipeline de Datos</h4>
+                <p>Demostración práctica de cómo un texto crudo de clientes (opiniones y feedback) pasa por tokenización, remoción de stopwords, vectorización densa (BERT/RoBERTa) y clasificación de polaridad positiva/neutra/negativa.</p>
+              </div>
+
+              <div class="deepdive-box">
+                <span class="deepdive-tag">Series Temporales & Forecast</span>
+                <h4>Modelos Predictivos de Demanda</h4>
+                <p>Explicación de cómo evitar el <em>data leakage</em> mediante validación cruzada temporal (rolling folds) y modelado con LightGBM, XGBoost y Prophet para pronósticos con 6.4% de MAPE.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Información práctica de cursada y transporte mostrada en la Expo -->
+          <div class="expo-practical-info">
+            <div class="practical-col">
+              <h4>Modalidades de Cursada en UNLu</h4>
+              <ul class="practical-list">
+                <li><strong>Presencial:</strong> Clases teóricas y prácticas en aula e interacción con laboratorios de computación.</li>
+                <li><strong>Semi-presencial:</strong> Esquema híbrido que combina encuentros virtuales sincrónicos y presenciales clave.</li>
+                <li><strong>Virtual:</strong> Cursada a distancia en Campus Virtual con instancias evaluativas presenciales.</li>
+              </ul>
+            </div>
+
+            <div class="practical-col">
+              <h4>Llegar a la Universidad & Boleto Estudiantil</h4>
+              <p class="practical-sub">Información clave para estudiantes compartida en la Expo:</p>
+              <div class="buses-tags">
+                <span class="bus-pill">Línea 57 (Once, Palermo, Moreno, Mercedes)</span>
+                <span class="bus-pill">Línea 203 (Moreno ↔ Luján)</span>
+                <span class="bus-pill">Línea 350 (Pilar ↔ Luján)</span>
+                <span class="bus-pill">Línea 365 (Lemos ↔ Luján)</span>
+                <span class="bus-pill">Línea 410 (San Martín ↔ Luján)</span>
+                <span class="bus-pill">Líneas 500 y 501 (Locales)</span>
+                <span class="bus-pill highlight-bus">✓ Acceso al Boleto Estudiantil Universitario</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Evento 2: CACIC 2026 -->
+    <section class="section">
+      <div class="section-container">
+        <div class="cacic-card">
+          <div class="cacic-grid">
+            <div class="cacic-content">
+              <span class="subheading">Hito Histórico de la Carrera</span>
+              <h2 class="cacic-title">CACIC 2026: XXXII Congreso Argentino de Ciencias de la Computación</h2>
+              <p class="cacic-lead">
+                <strong>Por primera vez en la historia de la UNLu</strong>, la carrera de <em>Analista Universitario en Ciencias de Datos</em> estuvo presente en el congreso más importante de ciencias de la computación del país.
+              </p>
+              <p class="cacic-text">
+                Una delegación de estudiantes de nuestra carrera viajó y representó a la comunidad académica de la Universidad Nacional de Luján, participando de exposiciones científicas, talleres de frontera en Inteligencia Artificial y estableciendo vínculos con universidades de todo el territorio nacional.
+              </p>
+
+              <div class="cacic-pillars">
+                <div class="pillar-item">
+                  <span class="pillar-bullet">✓</span>
+                  <div>
+                    <strong>Representación Institucional:</strong> Visibilidad y protagonismo para la carrera de Ciencias de Datos de la UNLu.
+                  </div>
+                </div>
+                <div class="pillar-item">
+                  <span class="pillar-bullet">✓</span>
+                  <div>
+                    <strong>Networking Profesional:</strong> Contacto directo con investigadores, empresas de tecnología y grupos de I+D.
+                  </div>
+                </div>
+                <div class="pillar-item">
+                  <span class="pillar-bullet">✓</span>
+                  <div>
+                    <strong>Impulso Formativo:</strong> Transferencia de conocimientos y proyectos para volcar a nuestros compañeros en Luján, San Miguel y Chivilcoy.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="cacic-media">
+              <div class="cacic-photo-frame">
+                <img src="assets/expo/image40.jpg" alt="Estudiantes de Analista Universitario en Ciencias de Datos de la UNLu en el CACIC 2026" class="cacic-photo" onerror="this.src='Logo 2.png';">
+                <div class="cacic-caption">
+                  Delegación de estudiantes de Analista Universitario en Ciencias de Datos UNLu en el CACIC 2026.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Próximas Convocatorias y Sumarse -->
+    <section class="section section-dark">
+      <div class="section-container text-center">
+        <span class="subheading">Próximos Encuentros</span>
+        <h2 class="section-title">¿Querés participar en los próximos eventos?</h2>
+        <p class="section-subtitle">
+          El CECiD gestiona traslados, certificados y acreditaciones para que más estudiantes puedan presentar proyectos y asistir a congresos y jornadas tecnológicas.
+        </p>
+        <div style="margin-top: 2rem;">
+          <a href="contacto.html" class="btn btn-primary">Sumarme al equipo de difusión & eventos</a>
+          <a href="propuestas.html" class="btn btn-secondary" style="margin-left: 0.5rem;">Ver propuestas del centro</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logos">
+            <img src="Logo 2.png" alt="Logo CECiD" class="footer-logo-cecid">
+            <img src="logo-unlu.png" alt="Escudo UNLu" class="footer-logo-unlu">
+          </div>
+          <p class="footer-tagline">
+            <strong>CECiD</strong> — Centro de Estudiantes de la carrera <em>Analista Universitario en Ciencias de Datos</em>. Universidad Nacional de Luján.
+          </p>
+        </div>
+
+        <div class="footer-links-group">
+          <h4>Páginas</h4>
+          <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="equipo.html">Nuestro Equipo</a></li>
+            <li><a href="propuestas.html">Propuestas & Ejes</a></li>
+            <li><a href="participaciones.html">Participaciones</a></li>
+            <li><a href="biblioteca.html">Biblioteca Digital</a></li>
+            <li><a href="plan-de-estudios.html">Plan de Estudios</a></li>
+            <li><a href="contacto.html">Redes & Contacto</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-group">
+          <h4>Canales Oficiales</h4>
+          <ul>
+            <li><a href="https://instagram.com" target="_blank" rel="noopener">Instagram (@cecid.unlu)</a></li>
+            <li><a href="https://discord.com" target="_blank" rel="noopener">Servidor de Discord</a></li>
+            <li><a href="https://facebook.com" target="_blank" rel="noopener">Facebook Fanpage</a></li>
+            <li><a href="mailto:cecid.unlu@gmail.com">cecid.unlu@gmail.com</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-group">
+          <h4>Sedes UNLu</h4>
+          <ul>
+            <li><a href="equipo.html#sedes">Sede Central Luján</a></li>
+            <li><a href="equipo.html#sedes">Sede San Miguel</a></li>
+            <li><a href="equipo.html#sedes">Sede Chivilcoy</a></li>
+            <li><a href="https://guarani.unlu.edu.ar/" target="_blank" rel="noopener">SIU Guaraní</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 CECiD • Centro de Estudiantes de Analista Universitario en Ciencias de Datos - UNLu.</p>
+        <p class="footer-credit">Conducción CECiD: Melany Ortiz • Juan Jara • Nicolas Versaci • Rosana Zunino y equipo.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

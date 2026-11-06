@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CECiD • Centro de Estudiantes de Analista Universitario en Ciencias de Datos | UNLu</title>
+  <meta name="description" content="Sitio oficial del Centro de Estudiantes de Analista Universitario en Ciencias de Datos de la Universidad Nacional de Luján (UNLu). Equipo, biblioteca digital, plan de estudios, propuestas y participaciones.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <canvas id="data-network-canvas" aria-hidden="true"></canvas>
+
+  <!-- Banner Superior Informativo -->
+  <aside class="election-top-banner" role="complementary">
+    <div class="banner-inner">
+      <span class="pulse-indicator"></span>
+      <span class="banner-text"><strong>Centro de Estudiantes en Funciones:</strong> CECiD para la carrera de <em>Analista Universitario en Ciencias de Datos</em> • UNLu</span>
+      <a href="participaciones.html" class="banner-btn">Ver Participaciones en Expo UNLu y CACIC 2026 &rarr;</a>
+    </div>
+  </aside>
+
+  <!-- Barra de Navegación -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-brand" aria-label="CECiD Inicio">
+        <img src="Logo 2.png" alt="Logo CECiD" class="brand-logo-cecid">
+        <div class="brand-text">
+          <span class="brand-title">CECiD</span>
+          <span class="brand-subtitle">Analista en Ciencias de Datos • UNLu</span>
+        </div>
+      </a>
+
+      <nav class="nav-menu" id="nav-menu" aria-label="Menú principal">
+        <a href="index.html" class="nav-link active highlight-pill">Inicio</a>
+        <a href="mapa.html" class="nav-link">Mapa UNLu</a>
+        <a href="equipo.html" class="nav-link">Nuestro Equipo</a>
+        <a href="propuestas.html" class="nav-link">Propuestas</a>
+        <a href="participaciones.html" class="nav-link">Participaciones</a>
+        <a href="biblioteca.html" class="nav-link">Biblioteca Digital</a>
+        <a href="plan-de-estudios.html" class="nav-link">Plan de Estudios</a>
+        <a href="contacto.html" class="nav-link">Redes & Contacto</a>
+      </nav>
+
+      <div class="nav-actions">
+        <img src="logo-unlu.png" alt="Escudo UNLu" class="brand-logo-unlu" title="Universidad Nacional de Luján">
+        <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú de navegación" aria-expanded="false">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+      <div class="hero-container">
+        <div class="hero-badge">
+          <span class="badge-dot"></span>
+          <span>Centro de Estudiantes Oficial • UNLu</span>
+        </div>
+        <h1 class="hero-title">
+          Tu centro, tu voz y la comunidad de <span class="gradient-text">Analista Universitario en Ciencias de Datos</span>
+        </h1>
+        <p class="hero-description">
+          ¡Te damos la bienvenida al portal del <strong>CECiD</strong>! Trabajamos para defender los derechos estudiantiles, construir una biblioteca digital libre con apuntes y resúmenes, organizar talleres prácticos de tecnología y representar a nuestra carrera en congresos y ferias.
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="biblioteca.html" class="btn btn-primary" id="btn-hero-biblioteca">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10M6 10h10M6 14h6"/></svg>
+            Biblioteca Digital Abierta
+          </a>
+          <a href="plan-de-estudios.html" class="btn btn-secondary" id="btn-hero-plan">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M3 9h18"/></svg>
+            Plan de Estudios Interactivo
+          </a>
+          <a href="participaciones.html" class="btn btn-outline" id="btn-hero-participaciones">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            Expo UNLu & CACIC 2026
+          </a>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-number">CECiD</div>
+            <div class="stat-label">Centro de Estudiantes Conformado</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">Plan 20.01</div>
+            <div class="stat-label">Analista Univ. en Ciencias de Datos</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">3 Sedes</div>
+            <div class="stat-label">Luján • San Miguel • Chivilcoy</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">100% Abierto</div>
+            <div class="stat-label">Apuntes, Recursos y Propuestas</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Hub de Páginas y Secciones -->
+    <section class="section section-dark">
+      <div class="section-container">
+        <div class="section-header text-center">
+          <span class="subheading">Explorá el Sitio</span>
+          <h2 class="section-title">Todo lo que necesitás en un solo lugar</h2>
+          <p class="section-subtitle">Navegá por las diferentes áreas preparadas para acompañarte a lo largo de toda tu carrera universitaria.</p>
+        </div>
+
+        <div class="portal-grid">
+          <!-- Tarjeta 1: Participaciones -->
+          <a href="participaciones.html" class="portal-card highlight-portal">
+            <div class="portal-icon">🏆</div>
+            <span class="portal-badge">Novedad</span>
+            <h3 class="portal-title">Participaciones & Eventos</h3>
+            <p class="portal-desc">Descubrí la presencia de nuestra carrera en la <strong>Expo UNLu 2026</strong> y la histórica participación en el <strong>CACIC 2026</strong> (Congreso Argentino de Ciencias de la Computación).</p>
+            <span class="portal-link">Ver participaciones y fotos &rarr;</span>
+          </a>
+
+          <!-- Tarjeta 2: Mapa UNLu Interactivo -->
+          <a href="mapa.html" class="portal-card">
+            <div class="portal-icon">🗺️</div>
+            <span class="portal-badge">Interactivo</span>
+            <h3 class="portal-title">Mapa UNLu & Sedes</h3>
+            <p class="portal-desc">Explorá el mapa interactivo de las 3 sedes (Luján, San Miguel, Chivilcoy), el croquis del campus con los laboratorios de datos y la guía de colectivos.</p>
+            <span class="portal-link">Abrir mapa interactivo &rarr;</span>
+          </a>
+
+          <!-- Tarjeta 2: Biblioteca Digital -->
+          <a href="biblioteca.html" class="portal-card">
+            <div class="portal-icon">📚</div>
+            <span class="portal-badge">Comunitario</span>
+            <h3 class="portal-title">Biblioteca Digital Abierta</h3>
+            <p class="portal-desc">Consultá apuntes, resúmenes teóricos, guías prácticas resueltas, modelos de parciales y chuletas rápidas de Python, SQL y Machine Learning.</p>
+            <span class="portal-link">Ir a la biblioteca &rarr;</span>
+          </a>
+
+          <!-- Tarjeta 3: Plan de Estudios -->
+          <a href="plan-de-estudios.html" class="portal-card">
+            <div class="portal-icon">📊</div>
+            <h3 class="portal-title">Plan de Estudios & Correlativas</h3>
+            <p class="portal-desc">Calculadora interactiva del <strong>Plan 20.01</strong>. Marcá tus materias aprobadas y conocé qué materias se te habilitan para cursar en el próximo cuatrimestre.</p>
+            <span class="portal-link">Abrir calculadora interactiva &rarr;</span>
+          </a>
+
+          <!-- Tarjeta 4: Nuestro Equipo -->
+          <a href="equipo.html" class="portal-card">
+            <div class="portal-icon">👥</div>
+            <h3 class="portal-title">Nuestro Equipo & Sedes</h3>
+            <p class="portal-desc">Conocé a la conducción del CECiD (Melany Ortiz, Juan Jara, Nicolas Versaci, Rosana Zunino y vocales) y los horarios de atención en Luján, San Miguel y Chivilcoy.</p>
+            <span class="portal-link">Conocer al equipo &rarr;</span>
+          </a>
+
+          <!-- Tarjeta 5: Propuestas -->
+          <a href="propuestas.html" class="portal-card">
+            <div class="portal-icon">💡</div>
+            <h3 class="portal-title">Propuestas & Ejes de Gestión</h3>
+            <p class="portal-desc">Talleres extracurriculares de programación, tutorías entre pares, la 1° Data Hackathon CECiD, bolsa de pasantías y defensa de derechos estudiantiles.</p>
+            <span class="portal-link">Ver plan de gestión &rarr;</span>
+          </a>
+
+          <!-- Tarjeta 6: Redes y Contacto -->
+          <a href="contacto.html" class="portal-card">
+            <div class="portal-icon">📱</div>
+            <h3 class="portal-title">Redes Oficiales & Buzón</h3>
+            <p class="portal-desc">Instagram oficial <strong>@cecid.unlu</strong>, servidor de Discord con salas de estudio, Facebook Fanpage, correo y formulario de consultas y reclamos.</p>
+            <span class="portal-link">Contactar al Centro &rarr;</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Novedad Destacada: Expo UNLu & CACIC 2026 Resumen -->
+    <section class="section">
+      <div class="section-container">
+        <div class="event-banner-card">
+          <div class="event-banner-content">
+            <span class="subheading">Hito de la Carrera</span>
+            <h2>Por primera vez en el CACIC 2026</h2>
+            <p>
+              Estudiantes de <strong>Analista Universitario en Ciencias de Datos</strong> de la UNLu representaron a nuestra universidad en el <em>XXXII Congreso Argentino de Ciencias de la Computación</em>, abriendo puertas para el intercambio científico y la vinculación laboral de la carrera.
+            </p>
+            <div style="margin-top: 1.25rem;">
+              <a href="participaciones.html" class="btn btn-primary btn-sm">Leer más y ver presentación de Expo UNLu &rarr;</a>
+            </div>
+          </div>
+          <div class="event-banner-media">
+            <img src="assets/expo/image40.jpg" alt="Estudiantes en CACIC 2026" class="event-banner-img" onerror="this.src='Logo 2.png';">
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logos">
+            <img src="Logo 2.png" alt="Logo CECiD" class="footer-logo-cecid">
+            <img src="logo-unlu.png" alt="Escudo UNLu" class="footer-logo-unlu">
+          </div>
+          <p class="footer-tagline">
+            <strong>CECiD</strong> — Centro de Estudiantes de <em>Analista Universitario en Ciencias de Datos</em> • UNLu.
+          </p>
+        </div>
+
+        <div class="footer-links-group">
+          <h4>Páginas</h4>
+          <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="equipo.html">Nuestro Equipo</a></li>
+            <li><a href="propuestas.html">Propuestas & Ejes</a></li>
+            <li><a href="participaciones.html">Participaciones</a></li>
+            <li><a href="biblioteca.html">Biblioteca Digital</a></li>
+            <li><a href="plan-de-estudios.html">Plan de Estudios</a></li>
+            <li><a href="contacto.html">Redes & Contacto</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-group">
+          <h4>Canales</h4>
+          <ul>
+            <li><a href="https://instagram.com" target="_blank" rel="noopener">Instagram (@cecid.unlu)</a></li>
+            <li><a href="https://discord.com" target="_blank" rel="noopener">Discord CECiD</a></li>
+            <li><a href="mailto:cecid.unlu@gmail.com">cecid.unlu@gmail.com</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-group">
+          <h4>UNLu Oficial</h4>
+          <ul>
+            <li><a href="https://guarani.unlu.edu.ar/" target="_blank" rel="noopener">SIU Guaraní</a></li>
+            <li><a href="https://platdigital.unlu.edu.ar/" target="_blank" rel="noopener">Campus Virtual</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 CECiD • Centro de Estudiantes de Analista Universitario en Ciencias de Datos - UNLu.</p>
+        <p class="footer-credit">Conducción CECiD: Melany Ortiz • Juan Jara • Nicolas Versaci • Rosana Zunino y equipo.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

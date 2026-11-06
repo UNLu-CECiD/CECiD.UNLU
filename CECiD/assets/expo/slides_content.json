@@ -1,0 +1,215 @@
+[
+  {
+    "slide": 1,
+    "texts": [
+      "Tu empresa",
+      "Expo UNLu Sede Lujan 23/10/2026"
+    ]
+  },
+  {
+    "slide": 2,
+    "texts": [
+      "VERSATILIDAD EN CUALQUIER INDUSTRIA",
+      "Analista Univ. en Ciencias de Datos",
+      "Salud y Medicina",
+      "Análisis de datos clínicos, modelos de diagnóstico predictivo y optimización de gestión hospitalaria.",
+      "Finanzas y Banca",
+      "Evaluación de riesgos crediticios, detección de fraudes en tiempo real y algoritmos de inversión.",
+      "Retail y Comercio Digital",
+      "Predicción de demanda, personalización de recomendaciones y optimización de logística.",
+      "Industria y Agro",
+      "Mantenimiento predictivo de maquinaria, agricultura de precisión y control de procesos."
+    ]
+  },
+  {
+    "slide": 3,
+    "texts": [
+      "Encuesta de Sueldos 2026.01   Diciembre - Febrero",
+      "https://sueldos.openqube.io/encuesta-sueldos-2026.01/#Salarios-Segun-Educacion"
+    ]
+  },
+  {
+    "slide": 4,
+    "texts": [
+      "RETOS CLAVE EN CIENCIA DE DATOS",
+      "PROCESAMIENTO DE LENGUAJE NATURAL · NLP",
+      "Análisis de Sentimiento: Clasificación de Polaridad",
+      "Pipeline de Datos & Inferencia",
+      "Feedback real no estructurado de cliente",
+      "Texto Crudo (Input)",
+      "\"Excelente servicio y entrega rápida, aunque la app tuvo pequeños errores.\"",
+      "Preprocesamiento & Embeddings",
+      "Positivo (82%)",
+      "Sarcasmo e Ironía",
+      "El contexto invierte el significado literal de las palabras.",
+      "Dependencia de Dominio",
+      "Términos como \"letal\" cambian de connotación según la industria.",
+      "Sentimiento Mixto",
+      "Requiere modelos basados en aspectos (Aspect-Based Sentiment).",
+      "Limpieza:",
+      " Tokenización y remoción de stopwords",
+      "Vectorización:",
+      " Representación densa (BERT / RoBERTa)",
+      "Predicción (Softmax)",
+      "Positivo",
+      "0.82",
+      "Neutro",
+      "0.11",
+      "Negativo",
+      "0.07"
+    ]
+  },
+  {
+    "slide": 5,
+    "texts": [
+      "COMPLEJIDADES METODOLÓGICAS EN LA CARRERA DE DATOS",
+      "SERIES TEMPORALES & MODELOS PREDICTIVOS",
+      "Predicción de Demanda: Optimización de Stock & Supply Chain",
+      "Pipeline de Inferencia ŷₜ₊ₕ",
+      "Fuentes de Datos",
+      " Features & Algoritmos",
+      "MAPE: 6.4%",
+      "—",
+      " Real histórico (t)",
+      "- -",
+      " Predicción (ŷ)",
+      "RMSE:",
+      " 142 uds.",
+      "Quiebres de Stock (Censura)",
+      "Venta registrada es menor a la demanda real por falta de producto.",
+      "Problema de Cold Start",
+      "Productos nuevos sin historial requieren embeddings por similitud de catálogo.",
+      "Time-Based Cross Validation",
+      "Evitar Data Leakage mediante ventanas temporales deslizantes (rolling folds).",
+      "Ventas yₜ:",
+      " Histórico transaccional",
+      "Precio & Promo:",
+      " Descuentos y campañas",
+      "Exógenas Xₜ:",
+      " Calendario, clima, feriados",
+      "Lags & Ventanas:",
+      " yₜ₋₁, yₜ₋₇, media móvil 14d",
+      "Temporalidad:",
+      " Día de semana, quincena, mes",
+      "Modelos:",
+      " LightGBM / XGBoost / Prophet",
+      "Forecast (30 Días)"
+    ]
+  },
+  {
+    "slide": 6,
+    "texts": [
+      "style.visibility"
+    ]
+  },
+  {
+    "slide": 7,
+    "texts": [
+      "Lineas de Colectivos",
+      "203:",
+      " Luján ↔ Moreno",
+      "322:",
+      " Luján ↔ Las Heras",
+      "350:",
+      " Luján ↔ Pilar",
+      "365:",
+      " Luján ↔ Lemos",
+      "410:",
+      " Luján ↔ San Martín (x Ruta 7)",
+      "500:",
+      " Estación Rodríguez ↔ Cañada de Arias (Esc 3)",
+      "501:",
+      " Estación Luján ↔ Barrio Juan XXIII",
+      "501:",
+      " Estación Luján ↔ La Palomita (x Parque Lesa)",
+      "57 (x Autopista):",
+      " Moreno ↔ Mercedes",
+      "57 (x Buen Ayre):",
+      " Palermo ↔ Mercedes",
+      "57 (Directo):",
+      " Once ↔ Luján",
+      "57 (Expreso):",
+      " Palermo ↔ Mercedes",
+      "57:",
+      " Once ↔ Luján ↔ Navarro",
+      "Fabe Bus:",
+      " Luján → Terminal Obelisco",
+      "TENEMOS BOLETO ESTUDIANTIL"
+    ]
+  },
+  {
+    "slide": 8,
+    "texts": [
+      "Líneas",
+      " de Colectivos"
+    ]
+  },
+  {
+    "slide": 9,
+    "texts": [
+      "Líneas de Colectivos"
+    ]
+  },
+  {
+    "slide": 10,
+    "texts": [
+      "Líneas de Colectivos"
+    ]
+  },
+  {
+    "slide": 11,
+    "texts": [
+      "Sedes de Cursada",
+      "Analista Univ. en Ciencias de Datos",
+      "Luján",
+      "Sede Central — Inscripción disponible para cursada presencial.",
+      "San Miguel",
+      "Centro Regional San Miguel",
+      "Nota: Clases en el Colegio ",
+      "Máximo",
+      "Chivilcoy",
+      "Centro Regional Chivilcoy — Inscripciones abiertas."
+    ]
+  },
+  {
+    "slide": 12,
+    "texts": [
+      "Modalidades de Cursada",
+      "Analista Univ. en Ciencias de Datos",
+      "Presencial",
+      "Asistencia regular a clases en las sedes universitarias.",
+      "Clases teóricas y prácticas en aula.",
+      "Interacción directa con docentes y pares.",
+      "Acceso a laboratorios del campus.",
+      "Semi-presencial",
+      "Esquema híbrido que combina encuentros virtuales y presenciales.",
+      "Clases virtuales periódicas.",
+      "Encuentros clave en sede.",
+      "Flexibilidad de horarios.",
+      "Virtual",
+      "Cursada 100% en campus virtual con instancias de evaluación presencial.",
+      "Materiales y actividades online.",
+      "Exámenes parciales y finales presenciales.",
+      "Ideal para estudiantes distantes."
+    ]
+  },
+  {
+    "slide": 13,
+    "texts": [
+      "CACIC 2026",
+      "Participación Estudiantil",
+      "Estudiantes de Analista ",
+      "Universitario en Ciencias de Datos",
+      "Por primera vez, nuestra carrera ",
+      "presente en el XXXII Congreso",
+      "Argentino de Ciencias de la",
+      "Computación (CACIC 2026).",
+      "Representación de la comunidad académica de la UNLu.",
+      "Espacio de aprendizaje, ",
+      "intercambio ",
+      "y networking profesional.",
+      "Impulso a la formación práctica",
+      "en ciencias de datos."
+    ]
+  }
+]

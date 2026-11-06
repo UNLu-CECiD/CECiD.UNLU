@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nuestro Equipo & Sedes • CECiD UNLu</title>
+  <meta name="description" content="Conocé a las autoridades y vocales del Centro de Estudiantes de Analista Universitario en Ciencias de Datos de la UNLu, y la atención en sedes Luján, San Miguel y Chivilcoy.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <canvas id="data-network-canvas" aria-hidden="true"></canvas>
+
+  <aside class="election-top-banner" role="complementary">
+    <div class="banner-inner">
+      <span class="pulse-indicator"></span>
+      <span class="banner-text"><strong>CECiD:</strong> Centro de Estudiantes de <em>Analista Universitario en Ciencias de Datos</em> • UNLu</span>
+    </div>
+  </aside>
+
+  <!-- Navbar -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-brand" aria-label="CECiD Inicio">
+        <img src="Logo 2.png" alt="Logo CECiD" class="brand-logo-cecid">
+        <div class="brand-text">
+          <span class="brand-title">CECiD</span>
+          <span class="brand-subtitle">Analista en Ciencias de Datos • UNLu</span>
+        </div>
+      </a>
+
+      <nav class="nav-menu" id="nav-menu" aria-label="Menú principal">
+        <a href="index.html" class="nav-link">Inicio</a>
+        <a href="mapa.html" class="nav-link">Mapa UNLu</a>
+        <a href="equipo.html" class="nav-link active highlight-pill">Nuestro Equipo</a>
+        <a href="propuestas.html" class="nav-link">Propuestas</a>
+        <a href="participaciones.html" class="nav-link">Participaciones</a>
+        <a href="biblioteca.html" class="nav-link">Biblioteca Digital</a>
+        <a href="plan-de-estudios.html" class="nav-link">Plan de Estudios</a>
+        <a href="contacto.html" class="nav-link">Redes & Contacto</a>
+      </nav>
+
+      <div class="nav-actions">
+        <img src="logo-unlu.png" alt="Escudo UNLu" class="brand-logo-unlu" title="Universidad Nacional de Luján">
+        <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú de navegación" aria-expanded="false">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="section-container text-center">
+        <span class="subheading">Comisión Directiva</span>
+        <h1 class="page-title">Conocé a quiénes te representan</h1>
+        <p class="section-subtitle">
+          Estudiantes comprometidos con la defensa de tus derechos, la calidad académica y la integración de la carrera de <strong>Analista Universitario en Ciencias de Datos</strong> en todas las sedes de la UNLu.
+        </p>
+      </div>
+    </section>
+
+    <!-- Equipo -->
+    <section class="section">
+      <div class="section-container">
+        <div class="team-grid">
+          <!-- Melany Ortiz -->
+          <article class="team-card">
+            <div class="team-avatar-box">
+              <div class="team-avatar-gradient">MO</div>
+              <span class="team-role-tag">Presidencia</span>
+            </div>
+            <div class="team-content">
+              <h3 class="team-name">Melany Ortiz</h3>
+              <p class="team-cargo">Presidenta</p>
+              <p class="team-desc">Coordinación general del centro, representación ante autoridades de la UNLu, decanatos y comisiones del Departamento de Ciencias Básicas.</p>
+            </div>
+          </article>
+
+          <!-- Juan Jara -->
+          <article class="team-card">
+            <div class="team-avatar-box">
+              <div class="team-avatar-gradient">JJ</div>
+              <span class="team-role-tag">Vicepresidencia</span>
+            </div>
+            <div class="team-content">
+              <h3 class="team-name">Juan Jara</h3>
+              <p class="team-cargo">Vicepresidente</p>
+              <p class="team-desc">Supervisión de proyectos de extensión estudiantil, nexo inter-sedes y seguimiento de iniciativas gremiales y comunitarias.</p>
+            </div>
+          </article>
+
+          <!-- Nicolas Versaci -->
+          <article class="team-card">
+            <div class="team-avatar-box">
+              <div class="team-avatar-gradient">NV</div>
+              <span class="team-role-tag">Sec. General</span>
+            </div>
+            <div class="team-content">
+              <h3 class="team-name">Nicolas Versaci</h3>
+              <p class="team-cargo">Sec. General</p>
+              <p class="team-desc">Organización interna del Centro, actas, comunicación de resoluciones oficiales y coordinación operativa de asambleas.</p>
+            </div>
+          </article>
+
+          <!-- Rosana Zunino -->
+          <article class="team-card highlight-card">
+            <div class="team-avatar-box">
+              <div class="team-avatar-gradient highlight">RZ</div>
+              <span class="team-role-tag">Sec. Académico</span>
+            </div>
+            <div class="team-content">
+              <h3 class="team-name">Rosana Zunino</h3>
+              <p class="team-cargo">Sec. Académico</p>
+              <p class="team-desc">Coordinación pedagógica, Biblioteca Digital Abierta, talleres de programación, asesoría de correlatividades y seguimiento del plan de estudios.</p>
+            </div>
+          </article>
+        </div>
+
+        <!-- Vocales -->
+        <div class="vocales-wrapper">
+          <h3 class="vocales-title">Cuerpo de Vocales Titulares</h3>
+          <div class="vocales-list">
+            <span class="vocal-pill"><span class="vocal-dot"></span> F. Tonini</span>
+            <span class="vocal-pill"><span class="vocal-dot"></span> G. Di Berardino</span>
+            <span class="vocal-pill"><span class="vocal-dot"></span> B. Weiss</span>
+            <span class="vocal-pill"><span class="vocal-dot"></span> F. Coyra</span>
+            <span class="vocal-pill"><span class="vocal-dot"></span> L. Kelechian</span>
+            <span class="vocal-pill"><span class="vocal-dot"></span> S. Tokashiki</span>
+          </div>
+          <div style="margin-top: 1.5rem;">
+            <button class="btn btn-outline btn-sm" id="btn-ver-folleto">
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              Ver Folleto Oficial de Conformación
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sedes y Presencia -->
+    <section class="section section-dark" id="sedes">
+      <div class="section-container">
+        <div class="section-header text-center">
+          <span class="subheading">Presencia en la Universidad</span>
+          <h2 class="section-title">El CECiD en Nuestras Sedes</h2>
+          <p class="section-subtitle">Acompañamos a las y los estudiantes de forma presencial en las tres sedes donde se dicta la carrera de Analista Universitario en Ciencias de Datos.</p>
+        </div>
+
+        <div class="sedes-grid">
+          <div class="sede-card" data-sede="lujan">
+            <div class="sede-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div class="sede-info">
+              <span class="sede-tag">Sede Central</span>
+              <h3 class="sede-name">Sede Luján</h3>
+              <p class="sede-time">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                Atención: 10:00 hs — 18:00 hs
+              </p>
+              <p class="sede-desc">Cruce Rutas 5 y 7, Luján. Punto de encuentro en el hall central y pabellones de Ciencias Básicas e Informática.</p>
+            </div>
+          </div>
+
+          <div class="sede-card featured" data-sede="san-miguel">
+            <div class="sede-badge">Centro Regional</div>
+            <div class="sede-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div class="sede-info">
+              <span class="sede-tag">Centro Regional</span>
+              <h3 class="sede-name">Sede San Miguel</h3>
+              <p class="sede-time">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                Atención: 13:00 hs — 17:00 hs
+              </p>
+              <p class="sede-desc">Fariña 111, San Miguel. (Nota: cursadas en las instalaciones del Colegio Máximo). Delegados de contacto para la región oeste/noroeste.</p>
+            </div>
+          </div>
+
+          <div class="sede-card" data-sede="chivilcoy">
+            <div class="sede-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div class="sede-info">
+              <span class="sede-tag">Centro Regional</span>
+              <h3 class="sede-name">Sede Chivilcoy</h3>
+              <p class="sede-time">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                Atención: 14:00 hs — 18:00 hs
+              </p>
+              <p class="sede-desc">El Maestro y 9 de Julio, Chivilcoy. Presencia del centro para acompañar la cursada presencial e híbrida y trámites locales.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal Folleto -->
+  <div class="modal" id="modal-folleto" aria-hidden="true" role="dialog">
+    <div class="modal-backdrop" id="modal-backdrop"></div>
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="modal-title">Folleto Oficial del CECiD</h3>
+        <button class="modal-close" id="modal-close" aria-label="Cerrar modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <img src="Folleto CECiD.png" alt="Folleto oficial del CECiD" class="folleto-full-img">
+      </div>
+      <div class="modal-footer">
+        <a href="Folleto CECiD.png" download="Folleto_CECiD.png" class="btn btn-primary btn-sm">Descargar Folleto</a>
+        <button class="btn btn-secondary btn-sm" id="btn-modal-cerrar">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logos">
+            <img src="Logo 2.png" alt="Logo CECiD" class="footer-logo-cecid">
+            <img src="logo-unlu.png" alt="Escudo UNLu" class="footer-logo-unlu">
+          </div>
+          <p class="footer-tagline">
+            <strong>CECiD</strong> — Centro de Estudiantes de <em>Analista Universitario en Ciencias de Datos</em> • UNLu.
+          </p>
+        </div>
+        <div class="footer-links-group">
+          <h4>Páginas</h4>
+          <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="equipo.html">Nuestro Equipo</a></li>
+            <li><a href="propuestas.html">Propuestas & Ejes</a></li>
+            <li><a href="participaciones.html">Participaciones</a></li>
+            <li><a href="biblioteca.html">Biblioteca Digital</a></li>
+            <li><a href="plan-de-estudios.html">Plan de Estudios</a></li>
+            <li><a href="contacto.html">Redes & Contacto</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-group">
+          <h4>Canales</h4>
+          <ul>
+            <li><a href="https://instagram.com" target="_blank" rel="noopener">Instagram (@cecid.unlu)</a></li>
+            <li><a href="https://discord.com" target="_blank" rel="noopener">Discord CECiD</a></li>
+            <li><a href="mailto:cecid.unlu@gmail.com">cecid.unlu@gmail.com</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-group">
+          <h4>UNLu Oficial</h4>
+          <ul>
+            <li><a href="https://guarani.unlu.edu.ar/" target="_blank" rel="noopener">SIU Guaraní</a></li>
+            <li><a href="https://platdigital.unlu.edu.ar/" target="_blank" rel="noopener">Campus Virtual</a></li>
+            <li><a href="https://www.unlu.edu.ar/" target="_blank" rel="noopener">Portal UNLu</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 CECiD • Centro de Estudiantes de Analista Universitario en Ciencias de Datos - UNLu.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

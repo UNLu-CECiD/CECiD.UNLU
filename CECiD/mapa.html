@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mapa Interactivo de la UNLu & Sedes • CECiD</title>
+  <meta name="description" content="Mapa interactivo de la Universidad Nacional de Luján (UNLu): Sede Central Luján, Centro Regional San Miguel y Chivilcoy. Puntos clave del campus, laboratorios y transporte.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Leaflet CSS para el mapa interactivo -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <canvas id="data-network-canvas" aria-hidden="true"></canvas>
+
+  <aside class="election-top-banner" role="complementary">
+    <div class="banner-inner">
+      <span class="pulse-indicator"></span>
+      <span class="banner-text"><strong>Guía del Campus:</strong> Explorá las sedes de la UNLu y los puntos clave donde cursamos <em>Analista Universitario en Ciencias de Datos</em></span>
+    </div>
+  </aside>
+
+  <!-- Navbar -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-brand" aria-label="CECiD Inicio">
+        <img src="Logo 2.png" alt="Logo CECiD" class="brand-logo-cecid">
+        <div class="brand-text">
+          <span class="brand-title">CECiD</span>
+          <span class="brand-subtitle">Analista en Ciencias de Datos • UNLu</span>
+        </div>
+      </a>
+
+      <nav class="nav-menu" id="nav-menu" aria-label="Menú principal">
+        <a href="index.html" class="nav-link">Inicio</a>
+        <a href="mapa.html" class="nav-link active highlight-pill">🗺️ Mapa UNLu</a>
+        <a href="equipo.html" class="nav-link">Nuestro Equipo</a>
+        <a href="propuestas.html" class="nav-link">Propuestas</a>
+        <a href="participaciones.html" class="nav-link">Participaciones</a>
+        <a href="biblioteca.html" class="nav-link">Biblioteca Digital</a>
+        <a href="plan-de-estudios.html" class="nav-link">Plan de Estudios</a>
+        <a href="contacto.html" class="nav-link">Redes & Contacto</a>
+      </nav>
+
+      <div class="nav-actions">
+        <img src="logo-unlu.png" alt="Escudo UNLu" class="brand-logo-unlu" title="Universidad Nacional de Luján">
+        <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú de navegación" aria-expanded="false">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="section-container text-center">
+        <span class="subheading">Ubicación & Campus</span>
+        <h1 class="page-title">Mapa Interactivo de la UNLu</h1>
+        <p class="section-subtitle">
+          Ubicá las sedes de la universidad donde se dicta la carrera de <strong>Analista Universitario en Ciencias de Datos</strong>, descubrí los puntos clave del campus de Luján (aulas de informática, biblioteca, comedor y mesa del CECiD) y cómo llegar.
+        </p>
+      </div>
+    </section>
+
+    <!-- Sección Mapa Interactivo -->
+    <section class="section">
+      <div class="section-container">
+        <!-- Selector de Vista y Sedes -->
+        <div class="map-controls-card">
+          <div class="map-view-tabs">
+            <button class="map-tab-btn active" id="tab-btn-sedes">📍 Mapa Geográfico de Sedes</button>
+            <button class="map-tab-btn" id="tab-btn-campus">🏛️ Croquis del Campus Sede Luján</button>
+          </div>
+
+          <div class="sede-quick-buttons" id="sede-buttons-container">
+            <span class="sede-quick-label">Saltar a:</span>
+            <button class="btn-sede-chip active" data-sede-id="lujan">Sede Central Luján</button>
+            <button class="btn-sede-chip" data-sede-id="san-miguel">Centro Regional San Miguel</button>
+            <button class="btn-sede-chip" data-sede-id="chivilcoy">Centro Regional Chivilcoy</button>
+            <button class="btn-sede-chip" data-sede-id="todas">Ver las 3 Sedes</button>
+          </div>
+        </div>
+
+        <!-- Contenedor del Mapa Leaflet -->
+        <div class="map-wrapper" id="leaflet-map-wrapper">
+          <div id="unlu-interactive-map" class="interactive-map-frame" role="region" aria-label="Mapa interactivo de sedes UNLu"></div>
+          
+          <!-- Panel flotante de información de la sede activa -->
+          <div class="map-info-overlay" id="map-info-overlay">
+            <div class="overlay-header">
+              <span class="overlay-tag" id="overlay-tag">Sede Central</span>
+              <h3 id="overlay-title">Sede Central Luján</h3>
+            </div>
+            <p class="overlay-address" id="overlay-address">Cruce Rutas Nac. 5 y 7, Luján, Prov. de Buenos Aires</p>
+            <div class="overlay-features" id="overlay-features">
+              <div><strong>Cursada:</strong> Presencial & Semi-presencial</div>
+              <div><strong>Atención CECiD:</strong> 10:00 hs — 18:00 hs (Hall Central)</div>
+              <div><strong>Infraestructura:</strong> Laboratorios de Informática, Biblioteca Central, Comedor Universitario</div>
+            </div>
+            <div class="overlay-action">
+              <a href="https://maps.google.com/?q=Universidad+Nacional+de+Lujan" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm btn-block" id="overlay-gmaps-link">
+                Abrir en Google Maps &rarr;
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contenedor del Croquis / Plano del Campus (Alternativa visual) -->
+        <div class="campus-croquis-wrapper hidden" id="campus-croquis-wrapper">
+          <div class="croquis-header">
+            <h3>Plano del Campus • Sede Central Luján</h3>
+            <p>Hacé clic en cualquier sector para ver qué actividades y materias de Ciencias de Datos se desarrollan allí.</p>
+          </div>
+
+          <div class="campus-layout-grid">
+            <div class="campus-map-visual">
+              <div class="campus-zone-box zone-entrance" data-zone="acceso">
+                <span class="zone-icon">🚪</span>
+                <span class="zone-name">Acceso Principal & Paradas de Colectivo</span>
+                <span class="zone-badge">Ruta 5 y 7</span>
+              </div>
+
+              <div class="campus-middle-row">
+                <div class="campus-zone-box zone-hall" data-zone="hall">
+                  <span class="zone-icon">🏛️</span>
+                  <span class="zone-name">Hall Central & Mesa del CECiD</span>
+                  <span class="zone-badge">Punto de Encuentro</span>
+                </div>
+
+                <div class="campus-zone-box zone-labs active-zone" data-zone="labs">
+                  <span class="zone-icon">💻</span>
+                  <span class="zone-name">Pabellón de Informática & Datos</span>
+                  <span class="zone-badge highlight-badge">Aulas de Computación</span>
+                </div>
+
+                <div class="campus-zone-box zone-biblio" data-zone="biblio">
+                  <span class="zone-icon">📖</span>
+                  <span class="zone-name">Biblioteca Central UNLu</span>
+                  <span class="zone-badge">Salas de Estudio</span>
+                </div>
+              </div>
+
+              <div class="campus-bottom-row">
+                <div class="campus-zone-box zone-comedor" data-zone="comedor">
+                  <span class="zone-icon">☕</span>
+                  <span class="zone-name">Comedor Universitario & Fotocopiadora</span>
+                  <span class="zone-badge">Espacio Común</span>
+                </div>
+
+                <div class="campus-zone-box zone-depto" data-zone="depto">
+                  <span class="zone-icon">📋</span>
+                  <span class="zone-name">Ciencias Básicas & Dpto. Alumnos</span>
+                  <span class="zone-badge">Trámites y Consultas</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Detalle de la zona seleccionada -->
+            <div class="campus-zone-detail-card" id="campus-zone-detail">
+              <span class="detail-tag" id="detail-tag">Sector Académico Clave</span>
+              <h3 class="detail-title" id="detail-title">Pabellón de Informática & Laboratorios de Datos</h3>
+              <p class="detail-desc" id="detail-desc">
+                Aquí se desarrollan las clases prácticas de <strong>Introducción a la Programación</strong>, <strong>Laboratorio de Ciencias de Datos</strong>, <strong>Bases de Datos</strong> y <strong>Machine Learning</strong>. Cuenta con computadoras equipadas con entornos de desarrollo en Python, R y Jupyter Notebooks.
+              </p>
+              <div class="detail-meta" id="detail-meta">
+                <div><strong>Horarios de Cursada:</strong> Turno Mañana, Tarde y Noche</div>
+                <div><strong>Conectividad:</strong> WiFi Universitario libre (Red UNLu Estudiantes)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Guía de Colectivos y Cómo Llegar (Información de la Expo) -->
+        <div class="transport-guide-section">
+          <div class="section-header text-center" style="margin-bottom: 2rem;">
+            <span class="subheading">Movilidad Estudiantil</span>
+            <h2 class="section-title">¿Cómo llegar a la UNLu?</h2>
+            <p class="section-subtitle">Recorridos de colectivos directos y combinaciones para las tres sedes universitarias.</p>
+          </div>
+
+          <div class="transport-cards-grid">
+            <div class="transport-card">
+              <div class="transport-card-header">
+                <span class="bus-number">Línea 57</span>
+                <span class="bus-operator">Transportes Atlántida</span>
+              </div>
+              <h4>Conexión Capital Federal & Zona Oeste</h4>
+              <ul class="bus-routes-list">
+                <li><strong>57 Directo / Rápido:</strong> Plaza Miserere (Once) ↔ Cruce UNLu Luján</li>
+                <li><strong>57 por Buen Ayre:</strong> Plaza Italia (Palermo) ↔ Mercedes (parada en UNLu)</li>
+                <li><strong>57 por Autopista:</strong> Moreno ↔ Luján ↔ Mercedes</li>
+              </ul>
+              <span class="ticket-tag">✓ Acepta Boleto Estudiantil</span>
+            </div>
+
+            <div class="transport-card">
+              <div class="transport-card-header">
+                <span class="bus-number">Líneas 203 • 350 • 365</span>
+                <span class="bus-operator">Zona Norte & Oeste</span>
+              </div>
+              <h4>Conexión con Moreno, Pilar y San Miguel</h4>
+              <ul class="bus-routes-list">
+                <li><strong>Línea 203:</strong> Moreno ↔ Gral. Rodríguez ↔ Luján (para en la puerta)</li>
+                <li><strong>Línea 350:</strong> Pilar ↔ Open Door ↔ Luján</li>
+                <li><strong>Línea 365:</strong> Estación Lemos (San Miguel) ↔ José C. Paz ↔ Luján</li>
+                <li><strong>Línea 410:</strong> San Martín por Ruta 7 ↔ Luján</li>
+              </ul>
+              <span class="ticket-tag">✓ Acepta Boleto Estudiantil</span>
+            </div>
+
+            <div class="transport-card">
+              <div class="transport-card-header">
+                <span class="bus-number">Regionales & Combis</span>
+                <span class="bus-operator">San Miguel & Chivilcoy</span>
+              </div>
+              <h4>Llegada a Centros Regionales</h4>
+              <ul class="bus-routes-list">
+                <li><strong>San Miguel (Fariña 111 / Colegio Máximo):</strong> Tren San Martín (Estación San Miguel) + colectivos 440 y 315.</li>
+                <li><strong>Chivilcoy (El Maestro y 9 de Julio):</strong> Colectivos urbanos de Chivilcoy + servicios de media distancia.</li>
+                <li><strong>Fabe Bus / Combis:</strong> Luján directo a Terminal Obelisco.</li>
+              </ul>
+              <span class="ticket-tag">✓ Boleto Universitario en provincia de Bs. As.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logos">
+            <img src="Logo 2.png" alt="Logo CECiD" class="footer-logo-cecid">
+            <img src="logo-unlu.png" alt="Escudo UNLu" class="footer-logo-unlu">
+          </div>
+          <p class="footer-tagline">
+            <strong>CECiD</strong> — Centro de Estudiantes de <em>Analista Universitario en Ciencias de Datos</em> • UNLu.
+          </p>
+        </div>
+        <div class="footer-links-group">
+          <h4>Páginas</h4>
+          <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="mapa.html">Mapa UNLu & Sedes</a></li>
+            <li><a href="equipo.html">Nuestro Equipo</a></li>
+            <li><a href="propuestas.html">Propuestas & Ejes</a></li>
+            <li><a href="participaciones.html">Participaciones</a></li>
+            <li><a href="biblioteca.html">Biblioteca Digital</a></li>
+            <li><a href="plan-de-estudios.html">Plan de Estudios</a></li>
+            <li><a href="contacto.html">Redes & Contacto</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-group">
+          <h4>Canales</h4>
+          <ul>
+            <li><a href="https://instagram.com" target="_blank" rel="noopener">Instagram (@cecid.unlu)</a></li>
+            <li><a href="https://discord.com" target="_blank" rel="noopener">Discord CECiD</a></li>
+            <li><a href="mailto:cecid.unlu@gmail.com">cecid.unlu@gmail.com</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-group">
+          <h4>UNLu Oficial</h4>
+          <ul>
+            <li><a href="https://guarani.unlu.edu.ar/" target="_blank" rel="noopener">SIU Guaraní</a></li>
+            <li><a href="https://platdigital.unlu.edu.ar/" target="_blank" rel="noopener">Campus Virtual</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 CECiD • Centro de Estudiantes de Analista Universitario en Ciencias de Datos - UNLu.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Leaflet JS para el mapa interactivo -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="app.js"></script>
+</body>
+</html>

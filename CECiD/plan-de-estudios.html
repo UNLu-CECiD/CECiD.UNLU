@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plan de Estudios 20.01 • CECiD UNLu</title>
+  <meta name="description" content="Plan de estudios oficial de Analista Universitario en Ciencias de Datos de la UNLu. Calculadora interactiva de correlatividades y seguimiento de materias.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <canvas id="data-network-canvas" aria-hidden="true"></canvas>
+
+  <aside class="election-top-banner" role="complementary">
+    <div class="banner-inner">
+      <span class="pulse-indicator"></span>
+      <span class="banner-text"><strong>Plan Oficial 20.01:</strong> Analista Universitario en Ciencias de Datos (17 materias obligatorias + 2 competencias) • UNLu</span>
+    </div>
+  </aside>
+
+  <!-- Navbar -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-brand" aria-label="CECiD Inicio">
+        <img src="Logo 2.png" alt="Logo CECiD" class="brand-logo-cecid">
+        <div class="brand-text">
+          <span class="brand-title">CECiD</span>
+          <span class="brand-subtitle">Analista en Ciencias de Datos • UNLu</span>
+        </div>
+      </a>
+
+      <nav class="nav-menu" id="nav-menu" aria-label="Menú principal">
+        <a href="index.html" class="nav-link">Inicio</a>
+        <a href="mapa.html" class="nav-link">Mapa UNLu</a>
+        <a href="equipo.html" class="nav-link">Nuestro Equipo</a>
+        <a href="propuestas.html" class="nav-link">Propuestas</a>
+        <a href="participaciones.html" class="nav-link">Participaciones</a>
+        <a href="biblioteca.html" class="nav-link">Biblioteca Digital</a>
+        <a href="plan-de-estudios.html" class="nav-link active highlight-pill">Plan de Estudios</a>
+        <a href="contacto.html" class="nav-link">Redes & Contacto</a>
+      </nav>
+
+      <div class="nav-actions">
+        <img src="logo-unlu.png" alt="Escudo UNLu" class="brand-logo-unlu" title="Universidad Nacional de Luján">
+        <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú de navegación" aria-expanded="false">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="section-container text-center">
+        <span class="subheading">Trayectoria Académica</span>
+        <h1 class="page-title">Plan de Estudios & Correlativas</h1>
+        <p class="section-subtitle">
+          Herramienta interactiva del <strong>Plan 20.01</strong> de <strong>Analista Universitario en Ciencias de Datos</strong> de la UNLu. Marcá las materias que ya aprobaste para calcular tu avance y ver cuáles se te habilitan para cursar.
+        </p>
+      </div>
+    </section>
+
+    <!-- Sección Plan de Estudios -->
+    <section class="section">
+      <div class="section-container">
+        <!-- Links Rápidos Oficiales UNLu -->
+        <div class="quick-links-grid">
+          <a href="https://guarani.unlu.edu.ar/" target="_blank" rel="noopener noreferrer" class="quick-link-card">
+            <div class="quick-link-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M13.8 12H3"/></svg>
+            </div>
+            <div class="quick-link-text">
+              <h4>SIU Guaraní UNLu</h4>
+              <p>Inscripciones a cursadas y exámenes finales</p>
+            </div>
+            <span class="external-arrow">&nearr;</span>
+          </a>
+
+          <a href="https://platdigital.unlu.edu.ar/" target="_blank" rel="noopener noreferrer" class="quick-link-card">
+            <div class="quick-link-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            </div>
+            <div class="quick-link-text">
+              <h4>Campus Virtual UNLu</h4>
+              <p>Aulas Moodle, materiales y entregas de TP</p>
+            </div>
+            <span class="external-arrow">&nearr;</span>
+          </a>
+
+          <a href="https://www.unlu.edu.ar/" target="_blank" rel="noopener noreferrer" class="quick-link-card">
+            <div class="quick-link-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/></svg>
+            </div>
+            <div class="quick-link-text">
+              <h4>Portal Institucional</h4>
+              <p>Calendario académico oficial y biblioteca central</p>
+            </div>
+            <span class="external-arrow">&nearr;</span>
+          </a>
+        </div>
+
+        <!-- Calculadora / Plan Interactivo -->
+        <div class="plan-tool-card">
+          <div class="plan-tool-header">
+            <div>
+              <h3 class="plan-tool-title">Mapeador de Materias & Correlativas</h3>
+              <p class="plan-tool-subtitle">Hacé clic sobre las tarjetas para marcarlas como aprobadas. Tu avance se guarda automáticamente en tu navegador.</p>
+            </div>
+            <div class="plan-progress-wrapper">
+              <div class="plan-progress-info">
+                <span>Progreso: <strong id="progress-percent">0%</strong> (<span id="progress-count">0</span> de 19 actividades)</span>
+              </div>
+              <div class="progress-bar-track">
+                <div class="progress-bar-fill" id="progress-bar-fill" style="width: 0%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Filtros de cuatrimestre -->
+          <div class="cuatri-filters">
+            <button class="filter-btn active" data-filter="all">Todos los Cuatrimestres</button>
+            <button class="filter-btn" data-filter="prev">Competencias Previas</button>
+            <button class="filter-btn" data-filter="1">1º Cuatrimestre</button>
+            <button class="filter-btn" data-filter="2">2º Cuatrimestre</button>
+            <button class="filter-btn" data-filter="3">3º Cuatrimestre</button>
+            <button class="filter-btn" data-filter="4">4º Cuatrimestre</button>
+            <button class="filter-btn" data-filter="5">5º Cuatrimestre</button>
+          </div>
+
+          <!-- Grid de Materias -->
+          <div class="subjects-grid" id="subjects-grid">
+            <!-- Cargadas dinámicamente vía app.js -->
+          </div>
+
+          <div class="plan-tool-footer">
+            <div class="legend">
+              <span class="legend-item"><span class="legend-color approved"></span> Aprobada</span>
+              <span class="legend-item"><span class="legend-color available"></span> Habilitada para cursar</span>
+              <span class="legend-item"><span class="legend-color locked"></span> Bloqueada por correlativas</span>
+            </div>
+            <button class="btn btn-sm btn-outline" id="btn-reset-plan">Reiniciar selección</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logos">
+            <img src="Logo 2.png" alt="Logo CECiD" class="footer-logo-cecid">
+            <img src="logo-unlu.png" alt="Escudo UNLu" class="footer-logo-unlu">
+          </div>
+          <p class="footer-tagline">
+            <strong>CECiD</strong> — Centro de Estudiantes de <em>Analista Universitario en Ciencias de Datos</em> • UNLu.
+          </p>
+        </div>
+        <div class="footer-links-group">
+          <h4>Páginas</h4>
+          <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="equipo.html">Nuestro Equipo</a></li>
+            <li><a href="propuestas.html">Propuestas & Ejes</a></li>
+            <li><a href="participaciones.html">Participaciones</a></li>
+            <li><a href="biblioteca.html">Biblioteca Digital</a></li>
+            <li><a href="plan-de-estudios.html">Plan de Estudios</a></li>
+            <li><a href="contacto.html">Redes & Contacto</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-group">
+          <h4>Canales</h4>
+          <ul>
+            <li><a href="https://instagram.com" target="_blank" rel="noopener">Instagram (@cecid.unlu)</a></li>
+            <li><a href="https://discord.com" target="_blank" rel="noopener">Discord CECiD</a></li>
+            <li><a href="mailto:cecid.unlu@gmail.com">cecid.unlu@gmail.com</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-group">
+          <h4>UNLu Oficial</h4>
+          <ul>
+            <li><a href="https://guarani.unlu.edu.ar/" target="_blank" rel="noopener">SIU Guaraní</a></li>
+            <li><a href="https://platdigital.unlu.edu.ar/" target="_blank" rel="noopener">Campus Virtual</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 CECiD • Centro de Estudiantes de Analista Universitario en Ciencias de Datos - UNLu.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

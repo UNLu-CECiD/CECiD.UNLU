@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Propuestas & Ejes de Gestión • CECiD UNLu</title>
+  <meta name="description" content="Iniciativas, talleres prácticos de datos, tutorías y proyectos impulsados por el Centro de Estudiantes de Analista Universitario en Ciencias de Datos de la UNLu.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <canvas id="data-network-canvas" aria-hidden="true"></canvas>
+
+  <aside class="election-top-banner" role="complementary">
+    <div class="banner-inner">
+      <span class="pulse-indicator"></span>
+      <span class="banner-text"><strong>Gestión en Marcha:</strong> Proyectos académicos, talleres y defensa estudiantil para <em>Analista Universitario en Ciencias de Datos</em> • UNLu</span>
+    </div>
+  </aside>
+
+  <!-- Navbar -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-brand" aria-label="CECiD Inicio">
+        <img src="Logo 2.png" alt="Logo CECiD" class="brand-logo-cecid">
+        <div class="brand-text">
+          <span class="brand-title">CECiD</span>
+          <span class="brand-subtitle">Analista en Ciencias de Datos • UNLu</span>
+        </div>
+      </a>
+
+      <nav class="nav-menu" id="nav-menu" aria-label="Menú principal">
+        <a href="index.html" class="nav-link">Inicio</a>
+        <a href="mapa.html" class="nav-link">Mapa UNLu</a>
+        <a href="equipo.html" class="nav-link">Nuestro Equipo</a>
+        <a href="propuestas.html" class="nav-link active highlight-pill">Propuestas</a>
+        <a href="participaciones.html" class="nav-link">Participaciones</a>
+        <a href="biblioteca.html" class="nav-link">Biblioteca Digital</a>
+        <a href="plan-de-estudios.html" class="nav-link">Plan de Estudios</a>
+        <a href="contacto.html" class="nav-link">Redes & Contacto</a>
+      </nav>
+
+      <div class="nav-actions">
+        <img src="logo-unlu.png" alt="Escudo UNLu" class="brand-logo-unlu" title="Universidad Nacional de Luján">
+        <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú de navegación" aria-expanded="false">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="section-container text-center">
+        <span class="subheading">Compromiso y Acción</span>
+        <h1 class="page-title">Propuestas & Ejes de Trabajo</h1>
+        <p class="section-subtitle">
+          El plan de gestión del <strong>CECiD</strong> para acompañar tu vida universitaria, generar oportunidades de inserción laboral en datos y asegurar cursadas de calidad en la UNLu.
+        </p>
+      </div>
+    </section>
+
+    <!-- Propuestas Grid -->
+    <section class="section">
+      <div class="section-container">
+        <div class="proposals-grid">
+          <div class="proposal-card">
+            <div class="proposal-badge status-active">En Ejecución</div>
+            <div class="proposal-icon">🐍</div>
+            <h3 class="proposal-title">Talleres Extracurriculares de Datos</h3>
+            <p class="proposal-desc">Ciclos de workshops prácticos sobre herramientas clave demandadas en el mercado laboral: Python científico (NumPy, Pandas), visualización con Power BI/Tableau, consultas SQL avanzadas y Machine Learning con Scikit-learn.</p>
+            <div class="proposal-meta">
+              <span><strong>Destinado a:</strong> Estudiantes de todos los años</span>
+              <span><strong>Modalidad:</strong> Híbrida / Grabada</span>
+            </div>
+          </div>
+
+          <div class="proposal-card">
+            <div class="proposal-badge status-active">En Ejecución</div>
+            <div class="proposal-icon">👥</div>
+            <h3 class="proposal-title">Red de Tutorías y Grupos de Estudio</h3>
+            <p class="proposal-desc">Espacio de acompañamiento entre pares antes de las semanas de parciales y finales para materias filtro como Introducción a la Programación, Matemática Básica, Álgebra Lineal y Análisis Matemático I.</p>
+            <div class="proposal-meta">
+              <span><strong>Destinado a:</strong> Ingresantes y 1º/2º cuatrimestre</span>
+              <span><strong>Coordinación:</strong> Sec. Académica</span>
+            </div>
+          </div>
+
+          <div class="proposal-card">
+            <div class="proposal-badge status-progress">Próximamente</div>
+            <div class="proposal-icon">⚡</div>
+            <h3 class="proposal-title">1° Data Hackathon CECiD - UNLu</h3>
+            <p class="proposal-desc">Jornada de desafío intensivo de ciencia de datos donde resolveremos problemas con datasets reales de interés social y regional, con mentores y premios a los mejores proyectos integradores.</p>
+            <div class="proposal-meta">
+              <span><strong>Objetivo:</strong> Networking, práctica real y portfolio</span>
+              <span><strong>Sede:</strong> Sede Central Luján e interconexión</span>
+            </div>
+          </div>
+
+          <div class="proposal-card">
+            <div class="proposal-badge status-progress">En Gestión</div>
+            <div class="proposal-icon">💼</div>
+            <h3 class="proposal-title">Bolsa de Trabajo y Prácticas en Datos</h3>
+            <p class="proposal-desc">Canal de vinculación con empresas de software y analítica, laboratorios de investigación de la UNLu y organismos públicos para acercar pasantías y primeras experiencias laborales a los estudiantes.</p>
+            <div class="proposal-meta">
+              <span><strong>Alcance:</strong> Estudiantes avanzados</span>
+              <span><strong>Gestión:</strong> Articulación institucional</span>
+            </div>
+          </div>
+
+          <div class="proposal-card">
+            <div class="proposal-badge status-active">Permanente</div>
+            <div class="proposal-icon">📢</div>
+            <h3 class="proposal-title">Mesa Abierta y Defensa Gremial</h3>
+            <p class="proposal-desc">Relevamiento constante de necesidad de cupos, horarios accesibles para estudiantes que trabajan, mantenimiento de laboratorios de informática y representación ante las comisiones docentes.</p>
+            <div class="proposal-meta">
+              <span><strong>Canal:</strong> Encuestas por sede y reuniones abiertas</span>
+              <span><strong>Compromiso:</strong> 100% Transparencia</span>
+            </div>
+          </div>
+
+          <div class="proposal-card">
+            <div class="proposal-badge status-active">Permanente</div>
+            <div class="proposal-icon">📚</div>
+            <h3 class="proposal-title">Expansión de la Biblioteca Digital</h3>
+            <p class="proposal-desc">Digitalización y ordenamiento de bibliografía obligatoria, cuadernillos de cátedra y apuntes compartidos para que ningún estudiante deba gastar en fotocopias inaccesibles.</p>
+            <div class="proposal-meta">
+              <span><strong>Acceso:</strong> Gratuito y permanente</span>
+              <span><strong>Actualización:</strong> Cuatrimestral</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: 3.5rem; text-align: center;">
+          <h3 style="margin-bottom: 0.75rem;">¿Tenés una propuesta para sumar al CECiD?</h3>
+          <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Las mejores ideas nacen de las necesidades reales de los estudiantes en el aula.</p>
+          <a href="contacto.html" class="btn btn-primary">Enviar mi propuesta al Centro</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logos">
+            <img src="Logo 2.png" alt="Logo CECiD" class="footer-logo-cecid">
+            <img src="logo-unlu.png" alt="Escudo UNLu" class="footer-logo-unlu">
+          </div>
+          <p class="footer-tagline">
+            <strong>CECiD</strong> — Centro de Estudiantes de <em>Analista Universitario en Ciencias de Datos</em> • UNLu.
+          </p>
+        </div>
+        <div class="footer-links-group">
+          <h4>Páginas</h4>
+          <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="equipo.html">Nuestro Equipo</a></li>
+            <li><a href="propuestas.html">Propuestas & Ejes</a></li>
+            <li><a href="participaciones.html">Participaciones</a></li>
+            <li><a href="biblioteca.html">Biblioteca Digital</a></li>
+            <li><a href="plan-de-estudios.html">Plan de Estudios</a></li>
+            <li><a href="contacto.html">Redes & Contacto</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-group">
+          <h4>Canales</h4>
+          <ul>
+            <li><a href="https://instagram.com" target="_blank" rel="noopener">Instagram (@cecid.unlu)</a></li>
+            <li><a href="https://discord.com" target="_blank" rel="noopener">Discord CECiD</a></li>
+            <li><a href="mailto:cecid.unlu@gmail.com">cecid.unlu@gmail.com</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-group">
+          <h4>UNLu Oficial</h4>
+          <ul>
+            <li><a href="https://guarani.unlu.edu.ar/" target="_blank" rel="noopener">SIU Guaraní</a></li>
+            <li><a href="https://platdigital.unlu.edu.ar/" target="_blank" rel="noopener">Campus Virtual</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 CECiD • Centro de Estudiantes de Analista Universitario en Ciencias de Datos - UNLu.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
