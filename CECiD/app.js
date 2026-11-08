@@ -11,10 +11,79 @@ document.addEventListener('DOMContentLoaded', () => {
   initPlanDeEstudios();
   initModals();
   initContactForm();
+  initSupabaseBlog();
+  initSupabaseTeam();
+  initSupabaseProposals();
+  initSupabaseEvents();
   initSocialTools();
   initMobileMenu();
   initScrollSpy();
 });
+
+async function supabaseRequest(table, { method = 'GET', query = '', body = null } = {}) {
+  const config = window.CECID_SUPABASE_CONFIG;
+  if (!config || !config.url || !config.publishableKey) {
+    throw new Error('Falta la configuración pública de Supabase.');
+  }
+
+  if (!/^[a-z_]+$/.test(table)) {
+    throw new Error('Nombre de tabla no válido.');
+  }
+
+  const response = await fetch(`${config.url}/rest/v1/${table}${query ? `?${query}` : ''}`, {
+    method,
+    headers: {
+      apikey: config.publishableKey,
+      Authorization: `Bearer ${config.publishableKey}`,
+      'Content-Type': 'application/json',
+      Prefer: method === 'POST' ? 'return=minimal' : 'return=representation'
+    },
+    body: body ? JSON.stringify(body) : undefined
+  });
+
+  if (!response.ok) {
+    const detail = await response.text();
+    throw new Error(`Supabase respondió ${response.status}: ${detail}`);
+  }
+
+  if (response.status === 204 || method === 'POST') return null;
+  return response.json();
+}
+
+function setSupabaseStatus(target, message, state = 'info') {
+  if (!target) return;
+  target.textContent = message;
+  target.className = `supabase-status ${state}`;
+}
+
+function showSupabaseError(target, context, error) {
+  console.error(`${context}:`, error);
+  setSupabaseStatus(
+    target,
+    'No se pudo conectar con Supabase. Verificá que las tablas y políticas RLS estén configuradas y que la página se abra desde un servidor web.',
+    'error'
+  );
+}
+
+function safeExternalUrl(value) {
+  if (!value) return null;
+  try {
+    const url = new URL(value, window.location.href);
+    return ['https:', 'http:'].includes(url.protocol) ? url.href : null;
+  } catch {
+    return null;
+  }
+}
+
+function escapeHtml(value) {
+  return String(value ?? '').replace(/[&<>"']/g, (character) => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  })[character]);
+}
 
 /* ==========================================================================
    1. Interactive Data Science Network Canvas (Connected Nodes)
@@ -520,8 +589,7 @@ function initBibliotecaDigital() {
 
   if (!grid) return;
 
-  const customResources = JSON.parse(localStorage.getItem('cecid_custom_resources') || '[]');
-  const allResources = [...customResources, ...DEFAULT_RESOURCES];
+  let allResources = [...DEFAULT_RESOURCES];
 
   let currentCategory = 'all';
   let searchTerm = '';
@@ -559,15 +627,15 @@ function initBibliotecaDigital() {
       card.innerHTML = `
         <div>
           <div class="resource-header">
-            <span class="resource-type-badge type-${item.category}">${item.categoryLabel}</span>
-            <span class="resource-format-tag">${item.format}</span>
+            <span class="resource-type-badge type-${escapeHtml(item.category)}">${escapeHtml(item.categoryLabel)}</span>
+            <span class="resource-format-tag">${escapeHtml(item.format)}</span>
           </div>
-          <p class="resource-materia">${item.materia}</p>
-          <h4 class="resource-title">${item.title}</h4>
-          <p class="resource-desc">${item.desc}</p>
+          <p class="resource-materia">${escapeHtml(item.materia)}</p>
+          <h4 class="resource-title">${escapeHtml(item.title)}</h4>
+          <p class="resource-desc">${escapeHtml(item.desc)}</p>
         </div>
         <div class="resource-footer">
-          <span class="resource-author">${item.author}</span>
+          <span class="resource-author">${escapeHtml(item.author)}</span>
           <button class="btn-download-resource" data-id="${item.id}">
             <span>Consultar material</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -576,8 +644,14 @@ function initBibliotecaDigital() {
       `;
 
       const downloadBtn = card.querySelector('.btn-download-resource');
+      const resourceUrl = safeExternalUrl(item.link);
+      if (resourceUrl) downloadBtn.textContent = 'Abrir material';
       downloadBtn.addEventListener('click', () => {
-        alert(`📖 "${item.title}"\n\nEste recurso forma parte de la Biblioteca Abierta del CECiD. Podés consultar y solicitar copias físicas o enlaces al Google Drive del centro escribiendo a cecid.unlu@gmail.com o a través del Discord oficial.`);
+        if (resourceUrl) {
+          window.open(resourceUrl, '_blank', 'noopener,noreferrer');
+        } else {
+          alert(`"${item.title}"\n\nPara consultar este recurso, escribinos a cecid.unlu@gmail.com o a través del Discord oficial.`);
+        }
       });
 
       grid.appendChild(card);
@@ -601,6 +675,49 @@ function initBibliotecaDigital() {
   });
 
   render();
+
+  async function loadResources() {
+    const status = document.querySelector('[data-supabase-status]');
+    try {
+      const rows = await supabaseRequest('resources', {
+        query: new URLSearchParams({
+          select: 'id,title,description,category,subject,author,format,file_url,link_url',
+          is_published: 'eq.true',
+          order: 'created_at.desc'
+        }).toString()
+      });
+      if (!rows.length) {
+        setSupabaseStatus(status, 'Supabase está conectada; se muestran los materiales actuales hasta que publiques recursos desde el panel.', 'info');
+        return;
+      }
+
+      const categoryLabels = {
+        apuntes: 'Apunte',
+        guias: 'Guía Resuelta',
+        examenes: 'Examen / Parcial',
+        cheatsheets: 'Cheat Sheet',
+        propuestas: 'Propuesta CECiD',
+        libros: 'Bibliografía'
+      };
+      allResources = rows.map((row) => ({
+        id: row.id,
+        category: categoryLabels[row.category] ? row.category : 'apuntes',
+        categoryLabel: categoryLabels[row.category] || 'Material',
+        format: row.format || 'Recurso digital',
+        materia: row.subject || '',
+        title: row.title,
+        desc: row.description || '',
+        author: row.author || 'Comunidad CECiD',
+        link: row.file_url || row.link_url || ''
+      }));
+      setSupabaseStatus(status, 'Biblioteca conectada con Supabase.', 'success');
+    } catch (error) {
+      showSupabaseError(status, 'No se pudo cargar la biblioteca', error);
+    }
+    render();
+  }
+
+  loadResources();
 }
 
 /* ==========================================================================
@@ -795,15 +912,14 @@ function initModals() {
   if (backdropAportar) backdropAportar.addEventListener('click', () => closeModal(modalAportar));
 
   if (aportarForm) {
-    aportarForm.addEventListener('submit', (e) => {
+    aportarForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const materiaCode = document.getElementById('aportar-materia')?.value;
       const materiaName = document.getElementById('aportar-materia')?.selectedOptions[0]?.text;
       const tipo = document.getElementById('aportar-tipo')?.value;
-      const tipoLabel = document.getElementById('aportar-tipo')?.selectedOptions[0]?.text;
       const titulo = document.getElementById('aportar-titulo')?.value.trim();
       const enlace = document.getElementById('aportar-enlace')?.value.trim();
       const autor = document.getElementById('aportar-autor')?.value.trim() || 'Estudiante anónimo';
+      const submitButton = aportarForm.querySelector('[type="submit"]');
 
       if (!titulo) {
         if (aportarFeedback) {
@@ -814,35 +930,39 @@ function initModals() {
         return;
       }
 
-      const customResources = JSON.parse(localStorage.getItem('cecid_custom_resources') || '[]');
-      const newResource = {
-        id: 'user-' + Date.now(),
-        category: tipo,
-        categoryLabel: tipoLabel,
-        format: enlace ? 'Enlace Digital' : 'Documento Estudiantil',
-        materia: materiaName,
-        title: titulo,
-        desc: `Material aportado para la comunidad universitaria. ${enlace ? 'Enlace: ' + enlace : ''}`,
-        author: `Aportado por: ${autor}`,
-        link: enlace || '#'
-      };
-
-      customResources.unshift(newResource);
-      localStorage.setItem('cecid_custom_resources', JSON.stringify(customResources));
-
-      if (aportarFeedback) {
-        aportarFeedback.innerHTML = `<strong>¡Muchas gracias!</strong><br>Tu material "${titulo}" se sumó a la biblioteca y ya aparece en el catálogo.`;
-        aportarFeedback.className = 'form-feedback success';
+      if (enlace && !safeExternalUrl(enlace)) {
+        aportarFeedback.textContent = 'Ingresá un enlace web válido o dejá ese campo vacío.';
+        aportarFeedback.className = 'form-feedback error';
         aportarFeedback.classList.remove('hidden');
+        return;
       }
 
-      aportarForm.reset();
-      initBibliotecaDigital();
+      if (submitButton) submitButton.disabled = true;
+      try {
+        await supabaseRequest('resource_submissions', {
+          method: 'POST',
+          body: {
+            subject: materiaName || '',
+            category: tipo || '',
+            title: titulo,
+            link_url: enlace || null,
+            submitter_name: autor
+          }
+        });
 
-      setTimeout(() => {
-        closeModal(modalAportar);
-        if (aportarFeedback) aportarFeedback.classList.add('hidden');
-      }, 2500);
+        aportarFeedback.textContent = '¡Gracias! Tu aporte se envió al CECiD y quedará pendiente de revisión antes de publicarse.';
+        aportarFeedback.className = 'form-feedback success';
+        aportarFeedback.classList.remove('hidden');
+        aportarForm.reset();
+        setTimeout(() => closeModal(modalAportar), 3000);
+      } catch (error) {
+        console.error('No se pudo enviar el aporte de biblioteca:', error);
+        aportarFeedback.textContent = 'No se pudo enviar tu aporte. Probá nuevamente más tarde o escribinos por correo.';
+        aportarFeedback.className = 'form-feedback error';
+        aportarFeedback.classList.remove('hidden');
+      } finally {
+        if (submitButton) submitButton.disabled = false;
+      }
     });
   }
 
@@ -863,7 +983,7 @@ function initContactForm() {
 
   if (!form || !feedback) return;
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const nombre = document.getElementById('form-nombre')?.value.trim();
@@ -879,29 +999,39 @@ function initContactForm() {
       return;
     }
 
-    const consultas = JSON.parse(localStorage.getItem('cecid_consultas') || '[]');
-    consultas.push({
-      nombre,
-      email,
-      sede,
-      tipo,
-      mensaje,
-      fecha: new Date().toISOString()
-    });
-    localStorage.setItem('cecid_consultas', JSON.stringify(consultas));
+    if (nombre.length > 120 || email.length > 254 || mensaje.length > 5000) {
+      feedback.textContent = 'Revisá los campos: nombre (máx. 120), correo (máx. 254) y mensaje (máx. 5000 caracteres).';
+      feedback.className = 'form-feedback error';
+      feedback.classList.remove('hidden');
+      return;
+    }
 
-    feedback.innerHTML = `
-      <strong>¡Mensaje recibido con éxito!</strong><br>
-      Muchas gracias ${nombre}. El equipo del CECiD te responderá a la brevedad a tu correo (${email}).
-    `;
-    feedback.className = 'form-feedback success';
-    feedback.classList.remove('hidden');
+    const submitButton = form.querySelector('[type="submit"]');
+    if (submitButton) submitButton.disabled = true;
+    try {
+      await supabaseRequest('contact_messages', {
+        method: 'POST',
+        body: {
+          name: nombre,
+          email,
+          campus: sede || '',
+          topic: tipo || '',
+          message: mensaje
+        }
+      });
 
-    form.reset();
-
-    setTimeout(() => {
-      feedback.classList.add('hidden');
-    }, 8000);
+      feedback.textContent = '¡Mensaje recibido! Se guardó correctamente y el equipo del CECiD podrá revisarlo.';
+      feedback.className = 'form-feedback success';
+      feedback.classList.remove('hidden');
+      form.reset();
+    } catch (error) {
+      console.error('No se pudo guardar el mensaje de contacto:', error);
+      feedback.textContent = 'No se pudo enviar el mensaje. Probá nuevamente más tarde o escribinos por correo.';
+      feedback.className = 'form-feedback error';
+      feedback.classList.remove('hidden');
+    } finally {
+      if (submitButton) submitButton.disabled = false;
+    }
   });
 }
 
@@ -976,4 +1106,265 @@ function initScrollSpy() {
       }
     });
   });
+}
+
+async function initSupabaseBlog() {
+  const grid = document.querySelector('.blog-grid');
+  const articles = document.querySelector('.blog-articles');
+  if (!grid || !articles) return;
+
+  const status = grid.parentElement.querySelector('[data-supabase-status]');
+  try {
+    const rows = await supabaseRequest('blog_posts', {
+      query: new URLSearchParams({
+        select: 'id,slug,title,excerpt,body,category,cover_url,published_at',
+        is_published: 'eq.true',
+        order: 'published_at.desc'
+      }).toString()
+    });
+
+    if (!rows.length) {
+      setSupabaseStatus(status, 'Supabase está conectada; se muestran los artículos actuales hasta que publiques entradas desde el panel.', 'info');
+      return;
+    }
+
+    grid.replaceChildren();
+    articles.replaceChildren();
+    rows.forEach((post, index) => {
+      const articleId = `post-${post.id}`;
+      const card = document.createElement('article');
+      card.className = `blog-card${index === 0 ? ' blog-card-featured' : ''}`;
+      const visual = document.createElement('div');
+      visual.className = `blog-card-visual${index % 2 ? ' blog-visual-data' : ' blog-visual-study'}`;
+      visual.setAttribute('aria-hidden', 'true');
+      const coverUrl = safeExternalUrl(post.cover_url);
+      if (coverUrl) {
+        const image = document.createElement('img');
+        image.src = coverUrl;
+        image.alt = '';
+        visual.replaceChildren(image);
+      } else {
+        const number = document.createElement('span');
+        number.textContent = String(index + 1).padStart(2, '0');
+        visual.append(number);
+      }
+
+      const content = document.createElement('div');
+      content.className = 'blog-card-content';
+      const category = document.createElement('span');
+      category.className = 'blog-category';
+      category.textContent = post.category || 'Comunidad';
+      const heading = document.createElement('h2');
+      const titleLink = document.createElement('a');
+      titleLink.href = `#${articleId}`;
+      titleLink.textContent = post.title;
+      heading.append(titleLink);
+      const excerpt = document.createElement('p');
+      excerpt.textContent = post.excerpt || '';
+      const readLink = document.createElement('a');
+      readLink.className = 'blog-read-link';
+      readLink.href = `#${articleId}`;
+      readLink.textContent = 'Leer artículo →';
+      content.append(category, heading, excerpt, readLink);
+      card.append(visual, content);
+      grid.append(card);
+
+      const fullArticle = document.createElement('article');
+      fullArticle.className = 'blog-article';
+      fullArticle.id = articleId;
+      const articleCategory = document.createElement('span');
+      articleCategory.className = 'blog-category';
+      articleCategory.textContent = post.category || 'Comunidad';
+      const articleTitle = document.createElement('h2');
+      articleTitle.textContent = post.title;
+      fullArticle.append(articleCategory, articleTitle);
+      (post.body || post.excerpt || '')
+        .split(/\n\s*\n/)
+        .map((paragraph) => paragraph.trim())
+        .filter(Boolean)
+        .forEach((paragraph) => {
+          const element = document.createElement('p');
+          element.textContent = paragraph;
+          fullArticle.append(element);
+        });
+      articles.append(fullArticle);
+    });
+
+    setSupabaseStatus(status, 'Publicaciones cargadas desde Supabase.', 'success');
+  } catch (error) {
+    showSupabaseError(status, 'No se pudo cargar el blog', error);
+  }
+}
+
+async function initSupabaseTeam() {
+  const grid = document.querySelector('.team-grid');
+  if (!grid) return;
+
+  const status = grid.parentElement.querySelector('[data-supabase-status]');
+  try {
+    const rows = await supabaseRequest('team_members', {
+      query: new URLSearchParams({
+        select: 'id,name,role,bio,photo_url,sort_order',
+        is_published: 'eq.true',
+        order: 'sort_order.asc'
+      }).toString()
+    });
+
+    if (!rows.length) {
+      setSupabaseStatus(status, 'Supabase está conectada; se muestra el equipo actual hasta que publiques integrantes desde el panel.', 'info');
+      return;
+    }
+
+    grid.replaceChildren();
+    rows.forEach((member) => {
+      const card = document.createElement('article');
+      card.className = 'team-card';
+      const avatarBox = document.createElement('div');
+      avatarBox.className = 'team-avatar-box';
+      const photoUrl = safeExternalUrl(member.photo_url);
+      if (photoUrl) {
+        const image = document.createElement('img');
+        image.src = photoUrl;
+        image.alt = `Foto de ${member.name}`;
+        image.className = 'team-avatar-gradient';
+        avatarBox.append(image);
+      } else {
+        const initials = document.createElement('div');
+        initials.className = 'team-avatar-gradient';
+        initials.textContent = member.name.split(/\s+/).slice(0, 2).map((part) => part[0]).join('').toUpperCase();
+        avatarBox.append(initials);
+      }
+      const roleTag = document.createElement('span');
+      roleTag.className = 'team-role-tag';
+      roleTag.textContent = member.role || 'Equipo CECiD';
+      avatarBox.append(roleTag);
+
+      const content = document.createElement('div');
+      content.className = 'team-content';
+      const name = document.createElement('h3');
+      name.className = 'team-name';
+      name.textContent = member.name;
+      const role = document.createElement('p');
+      role.className = 'team-cargo';
+      role.textContent = member.role || '';
+      const bio = document.createElement('p');
+      bio.className = 'team-desc';
+      bio.textContent = member.bio || '';
+      content.append(name, role, bio);
+      card.append(avatarBox, content);
+      grid.append(card);
+    });
+
+    setSupabaseStatus(status, 'Integrantes cargados desde Supabase.', 'success');
+  } catch (error) {
+    showSupabaseError(status, 'No se pudo cargar el equipo', error);
+  }
+}
+
+async function initSupabaseProposals() {
+  const grid = document.getElementById('proposals-grid');
+  if (!grid) return;
+
+  const status = grid.parentElement.querySelector('[data-supabase-status]');
+  try {
+    const rows = await supabaseRequest('proposals', {
+      query: new URLSearchParams({
+        select: 'id,title,description,status,sort_order',
+        is_published: 'eq.true',
+        order: 'sort_order.asc'
+      }).toString()
+    });
+
+    if (!rows.length) {
+      setSupabaseStatus(status, 'Supabase está conectada; se muestran las propuestas actuales hasta que publiques registros desde el panel.', 'info');
+      return;
+    }
+
+    grid.replaceChildren();
+    rows.forEach((proposal) => {
+      const card = document.createElement('article');
+      card.className = 'proposal-card';
+      const badge = document.createElement('div');
+      badge.className = `proposal-badge ${/ejecuci|permanente|activa/i.test(proposal.status) ? 'status-active' : 'status-progress'}`;
+      badge.textContent = proposal.status || 'En propuesta';
+      const icon = document.createElement('div');
+      icon.className = 'proposal-icon';
+      icon.textContent = '💡';
+      const title = document.createElement('h3');
+      title.className = 'proposal-title';
+      title.textContent = proposal.title;
+      const description = document.createElement('p');
+      description.className = 'proposal-desc';
+      description.textContent = proposal.description || '';
+      card.append(badge, icon, title, description);
+      grid.append(card);
+    });
+
+    setSupabaseStatus(status, 'Propuestas cargadas desde Supabase.', 'success');
+  } catch (error) {
+    showSupabaseError(status, 'No se pudieron cargar las propuestas', error);
+  }
+}
+
+async function initSupabaseEvents() {
+  const grid = document.getElementById('database-events-grid');
+  const section = document.getElementById('database-events-section');
+  if (!grid || !section) return;
+
+  const status = section.querySelector('[data-supabase-status]');
+  try {
+    const rows = await supabaseRequest('events', {
+      query: new URLSearchParams({
+        select: 'id,title,summary,body,starts_at,location,cover_url',
+        is_published: 'eq.true',
+        order: 'starts_at.asc'
+      }).toString()
+    });
+
+    if (!rows.length) return;
+    section.classList.remove('hidden');
+    rows.forEach((event) => {
+      const card = document.createElement('article');
+      card.className = 'database-event-card';
+      const coverUrl = safeExternalUrl(event.cover_url);
+      if (coverUrl) {
+        const image = document.createElement('img');
+        image.className = 'database-event-cover';
+        image.src = coverUrl;
+        image.alt = '';
+        card.append(image);
+      }
+
+      const content = document.createElement('div');
+      content.className = 'database-event-content';
+      const date = document.createElement('span');
+      date.className = 'event-date';
+      const startDate = event.starts_at ? new Date(event.starts_at) : null;
+      date.textContent = [startDate && !Number.isNaN(startDate.valueOf())
+        ? new Intl.DateTimeFormat('es-AR', { dateStyle: 'long' }).format(startDate)
+        : '', event.location].filter(Boolean).join(' • ');
+      const title = document.createElement('h3');
+      title.className = 'event-title';
+      title.textContent = event.title;
+      content.append(date, title);
+      if (event.summary) {
+        const summary = document.createElement('p');
+        summary.className = 'event-lead';
+        summary.textContent = event.summary;
+        content.append(summary);
+      }
+      if (event.body) {
+        const body = document.createElement('p');
+        body.className = 'event-text';
+        body.textContent = event.body;
+        content.append(body);
+      }
+      card.append(content);
+      grid.append(card);
+    });
+    setSupabaseStatus(status, 'Eventos cargados desde Supabase.', 'success');
+  } catch (error) {
+    section.classList.remove('hidden');
+    showSupabaseError(status, 'No se pudieron cargar los eventos', error);
+  }
 }

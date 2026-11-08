@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog de la Comunidad • CECiD UNLu</title>
+  <meta name="description" content="Ideas, guías y novedades para la comunidad de Analista Universitario en Ciencias de Datos de la UNLu.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <canvas id="data-network-canvas" aria-hidden="true"></canvas>
+
+  <aside class="election-top-banner" role="complementary">
+    <div class="banner-inner">
+      <span class="pulse-indicator"></span>
+      <span class="banner-text"><strong>Blog CECiD:</strong> Ideas, recursos y experiencias para aprender en comunidad • UNLu</span>
+    </div>
+  </aside>
+
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-brand" aria-label="CECiD Inicio">
+        <img src="Logo 2.png" alt="Logo CECiD" class="brand-logo-cecid">
+        <div class="brand-text">
+          <span class="brand-title">CECiD</span>
+          <span class="brand-subtitle">Analista en Ciencias de Datos • UNLu</span>
+        </div>
+      </a>
+
+      <nav class="nav-menu" id="nav-menu" aria-label="Menú principal">
+        <a href="index.html" class="nav-link">Inicio</a>
+        <a href="mapa.html" class="nav-link">Mapa UNLu</a>
+        <a href="equipo.html" class="nav-link">Nuestro Equipo</a>
+        <a href="propuestas.html" class="nav-link">Propuestas</a>
+        <a href="participaciones.html" class="nav-link">Participaciones</a>
+        <a href="biblioteca.html" class="nav-link">Biblioteca Digital</a>
+        <a href="plan-de-estudios.html" class="nav-link">Plan de Estudios</a>
+        <a href="blog.html" class="nav-link active highlight-pill" aria-current="page">Blog</a>
+        <a href="contacto.html" class="nav-link">Redes & Contacto</a>
+      </nav>
+
+      <div class="nav-actions">
+        <img src="logo-unlu.png" alt="Escudo UNLu" class="brand-logo-unlu" title="Universidad Nacional de Luján">
+        <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú de navegación" aria-expanded="false">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="section-container text-center">
+        <span class="subheading">Ideas que nos conectan</span>
+        <h1 class="page-title">El blog de la comunidad</h1>
+        <p class="section-subtitle">
+          Un espacio para compartir herramientas de estudio, acercarnos a las ciencias de datos y contar lo que construimos entre estudiantes.
+        </p>
+      </div>
+    </section>
+
+    <section class="section" aria-label="Publicaciones del blog">
+      <div class="section-container">
+        <p class="supabase-status" data-supabase-status role="status" aria-live="polite"></p>
+        <div class="blog-grid">
+          <article class="blog-card blog-card-featured">
+            <div class="blog-card-visual blog-visual-study" aria-hidden="true"><span>01</span></div>
+            <div class="blog-card-content">
+              <span class="blog-category">Vida universitaria</span>
+              <h2><a href="#organizar-el-estudio">Organizar el estudio: pequeños pasos que hacen la diferencia</a></h2>
+              <p>Una guía práctica para convertir objetivos grandes en sesiones de estudio posibles, sostener el ritmo y revisar lo aprendido.</p>
+              <a class="blog-read-link" href="#organizar-el-estudio">Leer artículo <span aria-hidden="true">&rarr;</span></a>
+            </div>
+          </article>
+
+          <article class="blog-card">
+            <div class="blog-card-visual blog-visual-data" aria-hidden="true"><span>02</span></div>
+            <div class="blog-card-content">
+              <span class="blog-category">Ciencias de datos</span>
+              <h2><a href="#datos-en-contexto">Los datos cuentan historias, pero necesitan contexto</a></h2>
+              <p>Una primera mirada al trabajo con datos: hacer buenas preguntas, entender de dónde vienen y comunicar lo que encontramos.</p>
+              <a class="blog-read-link" href="#datos-en-contexto">Leer artículo <span aria-hidden="true">&rarr;</span></a>
+            </div>
+          </article>
+
+          <article class="blog-card">
+            <div class="blog-card-visual blog-visual-community" aria-hidden="true"><span>03</span></div>
+            <div class="blog-card-content">
+              <span class="blog-category">Comunidad</span>
+              <h2><a href="#aprender-en-comunidad">Aprender en comunidad también es parte de la carrera</a></h2>
+              <p>Compartir apuntes, hacer preguntas y estudiar con otras personas puede abrir nuevas formas de comprender una materia.</p>
+              <a class="blog-read-link" href="#aprender-en-comunidad">Leer artículo <span aria-hidden="true">&rarr;</span></a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-dark" aria-label="Artículos completos">
+      <div class="section-container blog-articles">
+        <article class="blog-article" id="organizar-el-estudio">
+          <span class="blog-category">Vida universitaria</span>
+          <h2>Organizar el estudio: pequeños pasos que hacen la diferencia</h2>
+          <p>Cuando se juntan varias materias, empezar puede parecer lo más difícil. En lugar de armar un plan imposible, probá elegir una meta concreta para cada sesión: resolver algunos ejercicios, resumir un concepto o repasar una clase.</p>
+          <p>Alternar momentos de lectura con práctica ayuda a comprobar qué temas ya entendés y cuáles necesitan otra vuelta. También sirve anotar las dudas mientras estudiás para llevarlas a clase, al grupo de estudio o a una tutoría.</p>
+          <p>No hay una única rutina que funcione para todo el mundo. Ajustá los tiempos a tu cursada y reservá pausas: sostener el proceso vale más que intentar hacer todo de una vez.</p>
+          <a class="blog-related-link" href="plan-de-estudios.html">Consultá el plan de estudios &rarr;</a>
+        </article>
+
+        <article class="blog-article" id="datos-en-contexto">
+          <span class="blog-category">Ciencias de datos</span>
+          <h2>Los datos cuentan historias, pero necesitan contexto</h2>
+          <p>Un conjunto de datos no explica por sí solo qué está pasando. Antes de calcular o graficar, conviene entender quién los reunió, cómo se definieron las variables y qué información puede faltar.</p>
+          <p>Después, una pregunta clara ayuda a elegir qué explorar. Un gráfico puede mostrar patrones o diferencias, pero interpretar esos resultados exige cuidado: una relación entre variables no demuestra automáticamente que una cause la otra.</p>
+          <p>Finalmente, comunicar el análisis con palabras sencillas permite que otras personas evalúen tanto los hallazgos como sus límites. Ese recorrido —preguntar, explorar y explicar— forma parte del trabajo con datos.</p>
+          <a class="blog-related-link" href="biblioteca.html">Explorá la biblioteca digital &rarr;</a>
+        </article>
+
+        <article class="blog-article" id="aprender-en-comunidad">
+          <span class="blog-category">Comunidad</span>
+          <h2>Aprender en comunidad también es parte de la carrera</h2>
+          <p>Explicar un tema con tus propias palabras es una buena forma de detectar qué entendiste y qué todavía genera dudas. Escuchar otras estrategias también puede mostrar caminos distintos para resolver un mismo problema.</p>
+          <p>Un espacio de estudio compartido no reemplaza las clases ni el trabajo individual: los complementa. Para que sea útil, pueden acordar un tema, turnarse para explicar y dejar anotadas las preguntas que necesiten consultar con la cátedra.</p>
+          <p>La biblioteca abierta y los canales del CECiD son puntos de partida para compartir recursos y conectarse con otras personas de la carrera.</p>
+          <a class="blog-related-link" href="contacto.html">Conocé los canales de contacto &rarr;</a>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logos">
+            <img src="Logo 2.png" alt="Logo CECiD" class="footer-logo-cecid">
+            <img src="logo-unlu.png" alt="Escudo UNLu" class="footer-logo-unlu">
+          </div>
+          <p class="footer-tagline">
+            <strong>CECiD</strong> — Centro de Estudiantes de <em>Analista Universitario en Ciencias de Datos</em> • UNLu.
+          </p>
+        </div>
+        <div class="footer-links-group">
+          <h4>Páginas</h4>
+          <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="biblioteca.html">Biblioteca Digital</a></li>
+            <li><a href="blog.html" aria-current="page">Blog</a></li>
+            <li><a href="participaciones.html">Participaciones</a></li>
+            <li><a href="contacto.html">Redes & Contacto</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-group">
+          <h4>Canales</h4>
+          <ul>
+            <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram (@cecid.unlu)</a></li>
+            <li><a href="https://discord.com" target="_blank" rel="noopener noreferrer">Discord CECiD</a></li>
+            <li><a href="mailto:cecid.unlu@gmail.com">cecid.unlu@gmail.com</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-group">
+          <h4>UNLu Oficial</h4>
+          <ul>
+            <li><a href="https://guarani.unlu.edu.ar/" target="_blank" rel="noopener noreferrer">SIU Guaraní</a></li>
+            <li><a href="https://platdigital.unlu.edu.ar/" target="_blank" rel="noopener noreferrer">Campus Virtual</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 CECiD • Centro de Estudiantes de Analista Universitario en Ciencias de Datos - UNLu.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="supabase-config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
