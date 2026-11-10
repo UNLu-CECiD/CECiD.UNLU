@@ -16,18 +16,28 @@
   <aside class="election-top-banner" role="complementary">
     <div class="banner-inner">
       <span class="pulse-indicator"></span>
-      <span class="banner-text"><strong>Biblioteca Comunitaria:</strong> Material de estudio libre para <em>Analista Universitario en Ciencias de Datos</em> • UNLu</span>
+      <span class="banner-text"><strong>Biblioteca Digital:</strong> Espacio en preparación para <em>Analista Universitario en Ciencias de Datos</em> • UNLu</span>
     </div>
   </aside>
 
   <!-- Navbar -->
   <header class="navbar" id="navbar">
     <div class="nav-container">
-      <a href="index.html" class="nav-brand" aria-label="CECiD Inicio">
-        <img src="Logo 2.png" alt="Logo CECiD" class="brand-logo-cecid">
+      <div class="nav-side-left">
+        <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Abrir menú de navegación" aria-controls="nav-menu" aria-expanded="false">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+        <a href="index.html" class="nav-logo" aria-label="Inicio CECiD">
+          <img src="Logo 2.png" alt="Logo CECiD" class="brand-logo-cecid">
+        </a>
+      </div>
+
+      <a href="index.html" class="nav-brand" aria-label="Inicio CECiD">
         <div class="brand-text">
           <span class="brand-title">CECiD</span>
-          <span class="brand-subtitle">Analista en Ciencias de Datos • UNLu</span>
+          <span class="brand-subtitle">Centro de Estudiantes de Analista Universitario en Ciencias de Datos • UNLu</span>
         </div>
       </a>
 
@@ -45,11 +55,6 @@
 
       <div class="nav-actions">
         <img src="logo-unlu.png" alt="Escudo UNLu" class="brand-logo-unlu" title="Universidad Nacional de Luján">
-        <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú de navegación" aria-expanded="false">
-          <span class="bar"></span>
-          <span class="bar"></span>
-          <span class="bar"></span>
-        </button>
       </div>
     </div>
   </header>
@@ -57,10 +62,10 @@
   <main>
     <section class="page-hero">
       <div class="section-container text-center">
-        <span class="subheading">Recursos Abiertos</span>
+        <span class="subheading">En preparación</span>
         <h1 class="page-title">Biblioteca Digital Estudiantil</h1>
         <p class="section-subtitle">
-          Un espacio colaborativo para consultar apuntes de cátedra, guías prácticas resueltas, resúmenes teóricos y modelos de parciales de la carrera de <strong>Analista Universitario en Ciencias de Datos</strong>.
+          Estamos preparando este espacio. Próximamente vamos a cargar materiales de la carrera de <strong>Analista Universitario en Ciencias de Datos</strong>.
         </p>
       </div>
     </section>
@@ -69,7 +74,7 @@
     <section class="section">
       <div class="section-container">
         <!-- Toolbar con Búsqueda y Filtros -->
-        <div class="library-toolbar">
+        <div class="library-toolbar hidden">
           <div class="library-search-box">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
             <input type="text" id="library-search-input" placeholder="Buscar por materia, tema (ej: Python, Álgebra, SQL, Machine Learning)...">
@@ -87,12 +92,17 @@
 
         <!-- Catálogo de Recursos -->
         <p class="supabase-status" data-supabase-status role="status" aria-live="polite"></p>
-        <div class="library-grid" id="library-grid">
+        <div class="library-grid hidden">
           <!-- Renderizado dinámicamente con app.js -->
         </div>
 
+        <div class="library-empty-state" role="status">
+          <h2>Próximamente</h2>
+          <p>La biblioteca todavía no tiene materiales cargados.</p>
+        </div>
+
         <!-- Banner para Aportar Material -->
-        <div class="contribute-banner">
+        <div class="contribute-banner hidden">
           <div class="contribute-content">
             <div class="contribute-icon">🤝</div>
             <div>
@@ -168,6 +178,14 @@
             <input type="text" id="aportar-autor" placeholder="Ej: Lucas F. (Estudiante 2° año)">
           </div>
 
+          <div class="consent-field">
+            <label for="aportar-consentimiento">
+              <input type="checkbox" id="aportar-consentimiento" required>
+              <span>Confirmo que tengo derecho o autorización para compartir este material y acepto que el CECiD lo revise y, si lo aprueba, publique los datos que proporcioné en la biblioteca.</span>
+            </label>
+            <p>Al enviar el aporte, también aceptás los <a href="terminos-y-condiciones.html" target="_blank" rel="noopener noreferrer">Términos y Condiciones</a>. Los datos del envío se usan para gestionar la revisión; consultá la <a href="politica-de-privacidad.html" target="_blank" rel="noopener noreferrer">Política de Privacidad</a>.</p>
+          </div>
+
           <button type="submit" class="btn btn-primary btn-block" style="margin-top: 1rem;">
             Enviar aporte a la Biblioteca
           </button>
@@ -212,13 +230,18 @@
         <div class="footer-links-group">
           <h4>UNLu Oficial</h4>
           <ul>
-            <li><a href="https://guarani.unlu.edu.ar/" target="_blank" rel="noopener">SIU Guaraní</a></li>
-            <li><a href="https://platdigital.unlu.edu.ar/" target="_blank" rel="noopener">Campus Virtual</a></li>
+            <li><a href="https://www.unlu.edu.ar/" target="_blank" rel="noopener noreferrer">Sitio oficial UNLu</a></li>
+            <li><a href="https://www.unlu.edu.ar/acceso-aulas-virtuales.html" target="_blank" rel="noopener noreferrer">Aulas Virtuales UNLu</a></li>
           </ul>
         </div>
       </div>
       <div class="footer-bottom">
         <p>&copy; 2026 CECiD • Centro de Estudiantes de Analista Universitario en Ciencias de Datos - UNLu.</p>
+        <nav class="footer-legal-links" aria-label="Documentos institucionales">
+          <a href="Estatuto%20Centro%202026%20V3.pdf" target="_blank" rel="noopener noreferrer">Estatuto CECiD (PDF)</a>
+          <a href="politica-de-privacidad.html">Política de Privacidad</a>
+          <a href="terminos-y-condiciones.html">Términos y Condiciones</a>
+        </nav>
       </div>
     </div>
   </footer>

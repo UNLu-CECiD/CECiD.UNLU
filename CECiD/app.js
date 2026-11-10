@@ -12,6 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initModals();
   initContactForm();
   initSupabaseBlog();
+  initBlogComments();
+  initHomeNews();
   initSupabaseTeam();
   initSupabaseProposals();
   initSupabaseEvents();
@@ -919,6 +921,7 @@ function initModals() {
       const titulo = document.getElementById('aportar-titulo')?.value.trim();
       const enlace = document.getElementById('aportar-enlace')?.value.trim();
       const autor = document.getElementById('aportar-autor')?.value.trim() || 'Estudiante anónimo';
+      const consentimiento = document.getElementById('aportar-consentimiento');
       const submitButton = aportarForm.querySelector('[type="submit"]');
 
       if (!titulo) {
@@ -927,6 +930,13 @@ function initModals() {
           aportarFeedback.className = 'form-feedback error';
           aportarFeedback.classList.remove('hidden');
         }
+        return;
+      }
+
+      if (!consentimiento?.checked) {
+        aportarFeedback.textContent = 'Confirmá que tenés autorización para compartir el material y aceptás su revisión antes de enviarlo.';
+        aportarFeedback.className = 'form-feedback error';
+        aportarFeedback.classList.remove('hidden');
         return;
       }
 
@@ -983,24 +993,63 @@ function initContactForm() {
 
   if (!form || !feedback) return;
 
+  const topicSelect = document.getElementById('form-tipo');
+  const verificationFields = document.getElementById('student-verification-fields');
+  const legajoInput = document.getElementById('form-legajo');
+  const dniInput = document.getElementById('form-dni');
+  const verificationConsent = document.getElementById('student-verification-consent');
+
+  const updateVerificationFields = () => {
+    const isVerificationRequest = topicSelect?.value === 'verificacion';
+    if (verificationFields) verificationFields.hidden = !isVerificationRequest;
+    if (legajoInput) legajoInput.required = isVerificationRequest;
+    if (dniInput) dniInput.required = isVerificationRequest;
+    if (verificationConsent) verificationConsent.required = isVerificationRequest;
+  };
+
+  if (topicSelect && new URLSearchParams(window.location.search).get('tema') === 'verificacion') {
+    topicSelect.value = 'verificacion';
+  }
+
+  topicSelect?.addEventListener('change', updateVerificationFields);
+  updateVerificationFields();
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const nombre = document.getElementById('form-nombre')?.value.trim();
+    const apellido = document.getElementById('form-apellido')?.value.trim();
     const email = document.getElementById('form-email')?.value.trim();
     const sede = document.getElementById('form-sede')?.value;
-    const tipo = document.getElementById('form-tipo')?.value;
+    const tipo = topicSelect?.value;
     const mensaje = document.getElementById('form-mensaje')?.value.trim();
+    const legajo = legajoInput?.value.trim();
+    const dni = dniInput?.value.trim();
+    const verificationRequested = tipo === 'verificacion';
 
-    if (!nombre || !email || !mensaje) {
-      feedback.textContent = 'Por favor, completá todos los campos requeridos.';
+    if (!nombre || !apellido || !email || !mensaje) {
+      feedback.textContent = 'Completá nombre, apellido, correo electrónico y mensaje.';
       feedback.className = 'form-feedback error';
       feedback.classList.remove('hidden');
       return;
     }
 
-    if (nombre.length > 120 || email.length > 254 || mensaje.length > 5000) {
-      feedback.textContent = 'Revisá los campos: nombre (máx. 120), correo (máx. 254) y mensaje (máx. 5000 caracteres).';
+    if (nombre.length > 80 || apellido.length > 80 || email.length > 254 || mensaje.length > 5000) {
+      feedback.textContent = 'Revisá los campos: nombre y apellido (máx. 80 caracteres), correo (máx. 254) y mensaje (máx. 5000).';
+      feedback.className = 'form-feedback error';
+      feedback.classList.remove('hidden');
+      return;
+    }
+
+    if (verificationRequested && (!legajo || !dni || !verificationConsent?.checked)) {
+      feedback.textContent = 'Para solicitar la verificación, completá tu legajo y DNI y autorizá su uso para el cotejo con el padrón.';
+      feedback.className = 'form-feedback error';
+      feedback.classList.remove('hidden');
+      return;
+    }
+
+    if (verificationRequested && (legajo.length > 30 || !/^\d{7,8}$/.test(dni))) {
+      feedback.textContent = 'Ingresá un legajo de hasta 30 caracteres y un DNI de 7 u 8 números, sin puntos.';
       feedback.className = 'form-feedback error';
       feedback.classList.remove('hidden');
       return;
@@ -1013,7 +1062,11 @@ function initContactForm() {
         method: 'POST',
         body: {
           name: nombre,
+          surname: apellido,
           email,
+          student_id: verificationRequested ? legajo : null,
+          dni: verificationRequested ? dni : null,
+          student_verification_status: verificationRequested ? 'pending' : 'not_requested',
           campus: sede || '',
           topic: tipo || '',
           message: mensaje
@@ -1024,6 +1077,7 @@ function initContactForm() {
       feedback.className = 'form-feedback success';
       feedback.classList.remove('hidden');
       form.reset();
+      updateVerificationFields();
     } catch (error) {
       console.error('No se pudo guardar el mensaje de contacto:', error);
       feedback.textContent = 'No se pudo enviar el mensaje. Probá nuevamente más tarde o escribinos por correo.';
@@ -1033,6 +1087,118 @@ function initContactForm() {
       if (submitButton) submitButton.disabled = false;
     }
   });
+}
+
+function initBlogComments() {
+  const form = document.getElementById('blog-comment-form');
+  const filter = document.getElementById('comments-post-filter');
+  const list = document.getElementById('comments-list');
+  const status = document.getElementById('comments-status');
+  const feedback = document.getElementById('comment-feedback');
+
+  if (!form || !filter || !list || !status || !feedback) return;
+
+  async function loadComments() {
+    try {
+      const rows = await supabaseRequest('blog_comments', {
+        query: new URLSearchParams({
+          select: 'post_slug,display_name,body,author_type,created_at',
+          post_slug: `eq.${filter.value}`,
+          moderation_status: 'eq.approved',
+          order: 'created_at.desc',
+          limit: '50'
+        }).toString()
+      });
+
+      rows.sort((a, b) => Number(b.author_type === 'student') - Number(a.author_type === 'student'));
+      list.replaceChildren();
+
+      if (!rows.length) {
+        setSupabaseStatus(status, 'Todavía no hay comentarios publicados en este espacio.', 'info');
+        return;
+      }
+
+      rows.forEach((comment) => {
+        const card = document.createElement('article');
+        card.className = 'comment-card';
+
+        const header = document.createElement('div');
+        header.className = 'comment-card-header';
+        const name = document.createElement('h3');
+        name.textContent = comment.display_name;
+        header.append(name);
+
+        if (comment.author_type === 'student') {
+          const badge = document.createElement('span');
+          badge.className = 'comment-student-badge';
+          badge.textContent = 'Estudiante verificado';
+          header.append(badge);
+        }
+
+        const body = document.createElement('p');
+        body.textContent = comment.body;
+        card.append(header, body);
+        list.append(card);
+      });
+
+      setSupabaseStatus(status, 'Comentarios publicados; los comentarios de estudiantes verificados aparecen primero.', 'success');
+    } catch (error) {
+      showSupabaseError(status, 'No se pudieron cargar los comentarios', error);
+    }
+  }
+
+  filter.addEventListener('change', loadComments);
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const name = document.getElementById('comment-name').value.trim();
+    const postSlug = document.getElementById('comment-post').value;
+    const body = document.getElementById('comment-body').value.trim();
+    const consent = document.getElementById('comment-consent');
+
+    if (!name || !body || !consent.checked) {
+      feedback.textContent = 'Completá tu nombre o alias, el comentario y la autorización de publicación.';
+      feedback.className = 'form-feedback error';
+      feedback.classList.remove('hidden');
+      return;
+    }
+
+    if (name.length > 80 || body.length > 2000) {
+      feedback.textContent = 'El nombre o alias admite hasta 80 caracteres y el comentario hasta 2000.';
+      feedback.className = 'form-feedback error';
+      feedback.classList.remove('hidden');
+      return;
+    }
+
+    const submitButton = form.querySelector('[type="submit"]');
+    if (submitButton) submitButton.disabled = true;
+
+    try {
+      await supabaseRequest('blog_comments', {
+        method: 'POST',
+        body: {
+          post_slug: postSlug,
+          display_name: name,
+          body,
+          author_type: 'public',
+          moderation_status: 'pending'
+        }
+      });
+
+      feedback.textContent = 'Gracias. Tu comentario quedó pendiente de revisión antes de publicarse.';
+      feedback.className = 'form-feedback success';
+      feedback.classList.remove('hidden');
+      form.reset();
+    } catch (error) {
+      console.error('No se pudo enviar el comentario:', error);
+      feedback.textContent = 'No se pudo enviar el comentario. Probá nuevamente más tarde.';
+      feedback.className = 'form-feedback error';
+      feedback.classList.remove('hidden');
+    } finally {
+      if (submitButton) submitButton.disabled = false;
+    }
+  });
+
+  loadComments();
 }
 
 /* ==========================================================================
@@ -1071,16 +1237,31 @@ function initMobileMenu() {
 
   if (!toggle || !navMenu) return;
 
+  const closeMenu = () => {
+    navMenu.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-label', 'Abrir menú de navegación');
+  };
+
   toggle.addEventListener('click', () => {
     const isOpen = navMenu.classList.toggle('open');
     toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    toggle.setAttribute('aria-label', isOpen ? 'Cerrar menú de navegación' : 'Abrir menú de navegación');
   });
 
   navMenu.querySelectorAll('.nav-link').forEach((link) => {
-    link.addEventListener('click', () => {
-      navMenu.classList.remove('open');
-      toggle.setAttribute('aria-expanded', 'false');
-    });
+    link.addEventListener('click', closeMenu);
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!navMenu.contains(event.target) && !toggle.contains(event.target)) closeMenu();
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && navMenu.classList.contains('open')) {
+      closeMenu();
+      toggle.focus();
+    }
   });
 }
 
@@ -1122,6 +1303,8 @@ async function initSupabaseBlog() {
         order: 'published_at.desc'
       }).toString()
     });
+
+    addBlogCommentOptions(rows);
 
     if (!rows.length) {
       setSupabaseStatus(status, 'Supabase está conectada; se muestran los artículos actuales hasta que publiques entradas desde el panel.', 'info');
@@ -1193,6 +1376,92 @@ async function initSupabaseBlog() {
     setSupabaseStatus(status, 'Publicaciones cargadas desde Supabase.', 'success');
   } catch (error) {
     showSupabaseError(status, 'No se pudo cargar el blog', error);
+  }
+}
+
+function addBlogCommentOptions(posts) {
+  const selectors = [
+    document.getElementById('comment-post'),
+    document.getElementById('comments-post-filter')
+  ].filter(Boolean);
+
+  posts.forEach((post) => {
+    if (!post.slug) return;
+
+    selectors.forEach((selector) => {
+      if (Array.from(selector.options).some((option) => option.value === post.slug)) return;
+      const option = document.createElement('option');
+      option.value = post.slug;
+      option.textContent = post.title;
+      selector.append(option);
+    });
+  });
+}
+
+async function initHomeNews() {
+  const grid = document.querySelector('[data-home-news]');
+  if (!grid) return;
+
+  const status = document.querySelector('[data-home-news-status]');
+  try {
+    const rows = await supabaseRequest('blog_posts', {
+      query: new URLSearchParams({
+        select: 'id,title,excerpt,category,cover_url,published_at',
+        is_published: 'eq.true',
+        order: 'published_at.desc',
+        limit: '3'
+      }).toString()
+    });
+
+    grid.replaceChildren();
+    if (!rows.length) {
+      setSupabaseStatus(status, 'Todavía no hay publicaciones del blog para mostrar.', 'info');
+      return;
+    }
+
+    rows.forEach((post, index) => {
+      const card = document.createElement('article');
+      card.className = 'blog-card home-news-card';
+
+      const visual = document.createElement('div');
+      visual.className = `blog-card-visual${index % 2 ? ' blog-visual-data' : ' blog-visual-study'}`;
+      visual.setAttribute('aria-hidden', 'true');
+      const coverUrl = safeExternalUrl(post.cover_url);
+      if (coverUrl) {
+        const image = document.createElement('img');
+        image.src = coverUrl;
+        image.alt = '';
+        visual.append(image);
+      } else {
+        const number = document.createElement('span');
+        number.textContent = String(index + 1).padStart(2, '0');
+        visual.append(number);
+      }
+
+      const content = document.createElement('div');
+      content.className = 'blog-card-content';
+      const category = document.createElement('span');
+      category.className = 'blog-category';
+      category.textContent = post.category || 'Comunidad';
+      const heading = document.createElement('h2');
+      const titleLink = document.createElement('a');
+      titleLink.href = `blog.html#post-${encodeURIComponent(post.id)}`;
+      titleLink.textContent = post.title;
+      heading.append(titleLink);
+      const excerpt = document.createElement('p');
+      excerpt.textContent = post.excerpt || '';
+      const readLink = document.createElement('a');
+      readLink.className = 'blog-read-link';
+      readLink.href = titleLink.href;
+      readLink.textContent = 'Leer artículo →';
+      content.append(category, heading, excerpt, readLink);
+      card.append(visual, content);
+      grid.append(card);
+    });
+
+    setSupabaseStatus(status, 'Publicaciones recientes del blog.', 'success');
+  } catch (error) {
+    showSupabaseError(status, 'No se pudieron cargar las novedades del inicio', error);
   }
 }
 
