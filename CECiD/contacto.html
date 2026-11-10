@@ -23,11 +23,21 @@
   <!-- Navbar -->
   <header class="navbar" id="navbar">
     <div class="nav-container">
-      <a href="index.html" class="nav-brand" aria-label="CECiD Inicio">
-        <img src="Logo 2.png" alt="Logo CECiD" class="brand-logo-cecid">
+      <div class="nav-side-left">
+        <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Abrir menú de navegación" aria-controls="nav-menu" aria-expanded="false">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+        <a href="index.html" class="nav-logo" aria-label="Inicio CECiD">
+          <img src="Logo 2.png" alt="Logo CECiD" class="brand-logo-cecid">
+        </a>
+      </div>
+
+      <a href="index.html" class="nav-brand" aria-label="Inicio CECiD">
         <div class="brand-text">
           <span class="brand-title">CECiD</span>
-          <span class="brand-subtitle">Analista en Ciencias de Datos • UNLu</span>
+          <span class="brand-subtitle">Centro de Estudiantes de Analista Universitario en Ciencias de Datos • UNLu</span>
         </div>
       </a>
 
@@ -45,11 +55,6 @@
 
       <div class="nav-actions">
         <img src="logo-unlu.png" alt="Escudo UNLu" class="brand-logo-unlu" title="Universidad Nacional de Luján">
-        <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú de navegación" aria-expanded="false">
-          <span class="bar"></span>
-          <span class="bar"></span>
-          <span class="bar"></span>
-        </button>
       </div>
     </div>
   </header>
@@ -170,13 +175,18 @@
             
             <form id="contact-form" novalidate>
               <div class="form-group">
-                <label for="form-nombre">Nombre y Apellido</label>
-                <input type="text" id="form-nombre" name="nombre" placeholder="Ej: María Luján" required>
+                <label for="form-nombre">Nombre</label>
+                <input type="text" id="form-nombre" name="nombre" autocomplete="given-name" maxlength="80" placeholder="Ej: María" required>
               </div>
 
               <div class="form-group">
-                <label for="form-email">Correo Electrónico (o legajo UNLu)</label>
-                <input type="email" id="form-email" name="email" placeholder="usuario@gmail.com" required>
+                <label for="form-apellido">Apellido</label>
+                <input type="text" id="form-apellido" name="apellido" autocomplete="family-name" maxlength="80" placeholder="Ej: Luján" required>
+              </div>
+
+              <div class="form-group">
+                <label for="form-email">Correo Electrónico para responderte</label>
+                <input type="email" id="form-email" name="email" autocomplete="email" maxlength="254" placeholder="usuario@gmail.com" required>
               </div>
 
               <div class="form-row">
@@ -197,7 +207,26 @@
                     <option value="biblioteca">Biblioteca / Material de Estudio</option>
                     <option value="propuesta">Propuesta / Proyecto para el Centro</option>
                     <option value="tramite">Trámite o SIU Guaraní</option>
+                    <option value="verificacion">Solicitar verificación como estudiante</option>
                   </select>
+                </div>
+              </div>
+
+              <div id="student-verification-fields" class="student-verification-fields" hidden>
+                <p>Estos datos se usan únicamente para cotejar tu solicitud con el padrón cuando esté disponible. La verificación queda pendiente de revisión y nunca se publica.</p>
+                <div class="form-group">
+                  <label for="form-legajo">Legajo UNLu</label>
+                  <input type="text" id="form-legajo" name="legajo" maxlength="30" autocomplete="off" placeholder="Tu número de legajo" aria-describedby="student-verification-note">
+                </div>
+                <div class="form-group">
+                  <label for="form-dni">DNI</label>
+                  <input type="text" id="form-dni" name="dni" inputmode="numeric" autocomplete="off" maxlength="8" pattern="[0-9]{7,8}" placeholder="Sin puntos, 7 u 8 números" aria-describedby="student-verification-note">
+                </div>
+                <div class="consent-field">
+                  <label for="student-verification-consent">
+                    <input type="checkbox" id="student-verification-consent">
+                    <span>Autorizo el uso de mi legajo y DNI únicamente para verificar esta solicitud con el padrón.</span>
+                  </label>
                 </div>
               </div>
 
@@ -211,6 +240,7 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
               </button>
 
+              <p class="form-privacy-note" id="student-verification-note">Usaremos tus datos para responder tu consulta. Si pedís verificación, el legajo y el DNI se usarán solo para cotejar el padrón y no se mostrarán en la web. La revisión manual estará disponible cuando se incorpore el padrón y el panel administrativo. Leé la <a href="politica-de-privacidad.html" target="_blank" rel="noopener noreferrer">Política de Privacidad</a> y los <a href="terminos-y-condiciones.html" target="_blank" rel="noopener noreferrer">Términos y Condiciones</a>.</p>
               <div id="form-feedback" class="form-feedback hidden" role="alert"></div>
             </form>
           </div>
@@ -254,13 +284,18 @@
         <div class="footer-links-group">
           <h4>UNLu Oficial</h4>
           <ul>
-            <li><a href="https://guarani.unlu.edu.ar/" target="_blank" rel="noopener">SIU Guaraní</a></li>
-            <li><a href="https://platdigital.unlu.edu.ar/" target="_blank" rel="noopener">Campus Virtual</a></li>
+            <li><a href="https://www.unlu.edu.ar/" target="_blank" rel="noopener noreferrer">Sitio oficial UNLu</a></li>
+            <li><a href="https://www.unlu.edu.ar/acceso-aulas-virtuales.html" target="_blank" rel="noopener noreferrer">Aulas Virtuales UNLu</a></li>
           </ul>
         </div>
       </div>
       <div class="footer-bottom">
         <p>&copy; 2026 CECiD • Centro de Estudiantes de Analista Universitario en Ciencias de Datos - UNLu.</p>
+        <nav class="footer-legal-links" aria-label="Documentos institucionales">
+          <a href="Estatuto%20Centro%202026%20V3.pdf" target="_blank" rel="noopener noreferrer">Estatuto CECiD (PDF)</a>
+          <a href="politica-de-privacidad.html">Política de Privacidad</a>
+          <a href="terminos-y-condiciones.html">Términos y Condiciones</a>
+        </nav>
       </div>
     </div>
   </footer>
