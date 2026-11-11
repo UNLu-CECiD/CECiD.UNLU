@@ -69,7 +69,7 @@
         <section>
           <h2>Qué información recibimos</h2>
           <ul>
-            <li><strong>Formulario de contacto:</strong> nombre, apellido, correo electrónico, sede, tema y mensaje. Si elegís solicitar verificación estudiantil, también recibimos legajo y DNI para cotejarlos con el padrón cuando esté disponible. Estos datos de identidad no se muestran en el sitio.</li>
+            <li><strong>Formulario de contacto:</strong> nombre, apellido, correo electrónico, sede, tema y mensaje. Si elegís solicitar verificación estudiantil, también recibimos legajo y DNI para cotejarlos con el padrón interno. Estos datos de identidad no se muestran en el sitio.</li>
             <li><strong>Aportes a la biblioteca:</strong> materia, categoría, título y, si se proporciona, un enlace y nombre o alias. Los aportes quedan pendientes de revisión.</li>
             <li><strong>Comentarios del blog:</strong> nombre o alias, publicación elegida y texto del comentario. Los comentarios quedan pendientes de revisión y solo se muestran si el CECiD los aprueba.</li>
             <li><strong>Plan de estudios:</strong> las materias que marcás como aprobadas se guardan en el almacenamiento local de ese navegador. Esta función no envía ese progreso al CECiD; podés borrarlo desde la configuración del navegador, aunque se perderá el progreso guardado.</li>
@@ -78,8 +78,8 @@
 
         <section>
           <h2>Para qué usamos la información</h2>
-          <p>Usamos los datos de contacto para responder y dar seguimiento a tu consulta. Si pedís verificación estudiantil, el legajo y el DNI se usarán exclusivamente para cotejar tu solicitud con el padrón una vez que esté disponible. En esta etapa, la solicitud queda pendiente de verificación manual; completar esos campos no confirma que seas estudiante ni otorga prioridad automáticamente.</p>
-          <p>Los datos de identidad se envían a Supabase para que el CECiD pueda gestionar la solicitud y no se publican en la web. Usamos los datos de los aportes para revisarlos y gestionar su posible incorporación a la biblioteca. Los comentarios solo se publican después de la moderación y con el nombre o alias elegido y el texto; nunca se publica legajo ni DNI.</p>
+          <p>Usamos los datos de contacto para responder y dar seguimiento a tu consulta. Si pedís verificación estudiantil, el legajo y el DNI de la solicitud se cotejan con el padrón interno administrado por el CECiD. Una coincidencia actualiza el estado de la solicitud; si no hay coincidencia, el equipo puede revisarla. Completar esos campos o recibir un resultado de cotejo no otorga prioridad automáticamente.</p>
+          <p>El padrón, que contiene legajos y DNI, se guarda en una tabla privada de Supabase a la que solo acceden cuentas administrativas autorizadas. Los datos de identidad de las solicitudes y del padrón no se publican ni se incluyen en el respaldo editorial descargable. Usamos los datos de los aportes para revisarlos y gestionar su posible incorporación a la biblioteca. Los comentarios solo se publican después de la moderación y con el nombre o alias elegido y el texto; nunca se publica legajo ni DNI.</p>
           <p>No incluyas contraseñas, datos sensibles ni información privada de otras personas en los formularios o en los enlaces que compartas.</p>
         </section>
 
