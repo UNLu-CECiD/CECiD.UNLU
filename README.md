@@ -1,5 +1,4 @@
 # CECiD UNLu
-
 Sitio web del Centro de Estudiantes de la carrera **Analista Universitario en Ciencias de Datos** de la Universidad Nacional de Luján (UNLu). Reúne información de la carrera, recursos para estudiantes, novedades y canales de contacto.
 
 ## Contenidos
